@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Employees</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/client-page.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/left-menu.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:600">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Marcellus">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/js/hospital-frontend.js"></script>
+</head>
+<body data-main-class="employee">
+    <div class="main">
+        <div class="left-menu">
+            <div class="fixed-menu">
+                <a class="logo-block" href="/hospital">
+                    <img src="/images/main.png" alt="Logo image">
+                    <span>Hospital</span>
+                </a>
+                <a class="left-menu-element" href="/client">
+                    <img src="/images/user.png" class="left-menu-image">
+                    <span class="left-menu-link"> CLIENTS </span>
+                </a>
+                <a class="left-menu-element" href="/employee">
+                    <img src="/images/people.png" class="left-menu-image">
+                    <span class="left-menu-link"> EMPLOYEES </span>
+                </a>
+                <a class="left-menu-element" href="/project">
+                    <img src="/images/business.png" class="left-menu-image">
+                    <span class="left-menu-link"> PROJECTS </span>
+                </a>
+                <a class="left-menu-element" href="/work-time">
+                <img src="/images/time.png" class="left-menu-image">
+                <span class="left-menu-link"> WORK TIME </span>
+            </a>
+            </div>
+            <div id="data-form-place">
+            </div>
+        </div>
+        <div class="left-menu-minimizer"></div>
+        <div class="body">
+            <div class="header">
+                <span>Employees</span>
+            </div>
+            <div class="footer-actions">
+                <a onclick="openDataForm(0, true);">
+                    <img src="/images/add.png" class="left-menu-image">
+                    <span>ADD NEW EMPLOYEE</span>
+                </a>
+                <a onclick="downloadReadingList();">
+                    <img src="/images/share.png" class="left-menu-image">
+                    <span>MAKE LIST OF ALL EMPLOYEES</span>
+                </a>
+            </div>
+            <div id="body-content" class="body-content">
+
+            </div>
+            <div class="footer">
+                <div class="footer-block">
+                    <a class="logo-block" href="/client">
+                        <img src="/images/main.png" alt="Logo image">
+                        <span>Hospital</span>
+                    </a>
+                </div>
+                <div class="footer-block tsi-info">
+                    <span>Ilya Pozdeev's coursework for the <a href="https://www.tsi.lv/en" target="_blank">TTI university</a></span>
+                </div>
+                <div class="footer-block">
+                    <a href="https://www.facebook.com/Ilya.Pozdeev.24" class="social-media" target="_blank">
+                        <img src="/images/facebook.png" alt="facebook">
+                    </a>
+                    <a href="https://www.linkedin.com/in/ilja-pozdejevs/?locale=en_US" class="social-media" target="_blank">
+                        <img src="/images/linkedin.png" alt="linkedin">
+                    </a>
+                    <a href="https://vk.com/id.ilya_pozdeev" class="social-media" target="_blank">
+                        <img src="/images/vk.png" alt="vk">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

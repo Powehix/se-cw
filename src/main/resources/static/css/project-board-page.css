@@ -1,0 +1,138 @@
+.project-board {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.task-column {
+    width: 20%;
+    height: 100%;
+    min-width: 120px;
+}
+
+.task-column-title {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    padding: 15px 0;
+}
+
+.task-column-title span {
+    margin: 0 auto;
+    font-size: 15px;
+}
+
+.task-column-content {
+    display: flex;
+    border: 1px solid black;
+    flex-direction: column;
+    height: 100%;
+}
+
+.task-block {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    font-size: 14px;
+    cursor: pointer;
+    min-height: 80px;
+    max-height: 80px;
+}
+
+.task-block span:first-child {
+    font-weight: bold;
+    padding: 5px;
+}
+
+.task-block span:last-child{
+    font-size: 13px;
+    margin: auto auto 5px 5px;
+}
+
+.large-input {
+    min-width: 292px;
+    min-height: 260px;
+    max-width: 292px;
+    max-height: 260px;
+    padding: 5px;
+    font-size: 17px;
+    font-family: 'Open Sans';
+}
+
+.task-form-container {
+    margin: auto;
+    background: white;
+    padding: 20px 40px 20px;
+    border-radius: 10px;
+    border: 2px solid grey;
+    font-size: 23px;
+    width: 520px;
+}
+
+.task-form-container form {
+    display: flex;
+}
+
+.task-form-container .left-part {
+    display: flex;
+    flex-direction: column;
+    width: 58%;
+    padding-right: 10px;
+}
+
+.task-form-container .right-part {
+    display: flex;
+    flex-direction: column;
+    width: 161px;
+    padding-left: 45px;
+    padding-top: 12px;
+    margin: 0 auto;
+}
+
+.task-form-container .left-part p {
+    margin: 5px auto 0 0;
+    width: 300px;
+}
+
+.task-form-container .right-part p{
+    margin: 15px 0 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-form-container input {
+    font-size: 20px;
+    width: 296px;
+}
+
+.no-border-input {
+    border: 0;
+}
+
+.right-part input:last-child {
+    width: 154px;
+}
+
+.task-form-container select {
+    font-size: 20px;
+    width: fit-content;
+    margin: 0 0 0 auto;
+}
+
+.task-form-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: initial;
+    padding-top: 15px;
+    flex-direction: column;
+}
+
+.task-form-navigation .button-a {
+    margin-top: 16px;
+    width: 100%;
+}
+
+#add-entity-form .large-input {
+    min-height: 321px;
+    max-height: 321px;
+}

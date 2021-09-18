@@ -1,0 +1,35 @@
+.company-element {
+    width: 190px;
+    border: solid 1px black;
+    margin: 10px auto;
+}
+
+.company-image-container {
+    width: 100%;
+    background: #5A616B;
+}
+
+.company-image-container > img {
+    width: 100%;
+}
+
+.company-info-container {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.company-info-container span {
+    margin: auto;
+    font-size: 17px;
+}
+
+.company-info-container span:first-child {
+    font-size: 17px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+}
