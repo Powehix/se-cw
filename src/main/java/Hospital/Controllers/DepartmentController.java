@@ -3,22 +3,13 @@ package Hospital.Controllers;
 import Hospital.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.ResultSet;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @Controller
-public class ProjectController {
+public class DepartmentController {
 
 	@Autowired
 	private ClientRepository clientRepository;
@@ -32,19 +23,19 @@ public class ProjectController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@GetMapping("/project")
+	@GetMapping("/department")
 	public String getEntityPage() {
-		return "project";
+		return "department";
 	}
 
-	@GetMapping("/project/board")
-	public String getProjectBoardPage() {
-		return "projectboard";
+	@GetMapping("/department/board")
+	public String getDepartmentBoardPage() {
+		return "departmentboard";
 	}
 
-	@GetMapping("/project/print")
+	@GetMapping("/department/print")
 	public String getEntityPrintPage() {
-		return "projectprint";
+		return "departmentprint";
 	}
 
 	@GetMapping("/task/print")
@@ -76,10 +67,10 @@ public class ProjectController {
 		return selectTagOptions;
 	}
 
-	public String projectGetAddFormHtml() {
+	public String departmentGetAddFormHtml() {
 		return "<div id=\"form-add-container\" class=\"form-place-holder\">\n" +
 				"                <div class=\"form-container\">\n" +
-				"                    <form id=\"add-entity-form\" action=\"/project/save\" method=\"post\">\n" +
+				"                    <form id=\"add-entity-form\" action=\"/department/save\" method=\"post\">\n" +
 				"<p>Title: <input type=\"text\" name=\"title\" class=\"data\" value=''/></p>\n" +
 				"                            <p>Client: " +
 				"<select name=\"idClient\" form=\"add-entity-form\">" +
@@ -110,7 +101,7 @@ public class ProjectController {
 				"            </div>";
 	}
 
-	public String taskGetAddFormHtml(Integer projectId) {
+	public String taskGetAddFormHtml(Integer departmentId) {
 		return "<div id=\"form-add-container\" class=\"form-place-holder\">\n" +
 				"                <div class=\"task-form-container\">\n" +
 				"                    <form id=\"add-entity-form\" action=\"/task/save\" method=\"post\">\n" +
@@ -146,7 +137,7 @@ public class ProjectController {
 				"                    </a>\n" +
 				"                    </div>\n" +
 				"</div>" +
-				"<input type=\"hidden\" name=\"idProject\" value='"+ projectId +"'/>"+
+				"<input type=\"hidden\" name=\"idDepartment\" value='"+ departmentId +"'/>"+
 				"                    </form>\n" +
 				"                </div>\n" +
 				"            </div>";
@@ -158,7 +149,7 @@ public class ProjectController {
 
 		String selectTagOptions = "";
 		for (Doctor employee : employees) {
-			selectTagOptions += employee.getOptionHtml((employee.getIdEmployee().equals(employeeId)));
+			selectTagOptions += employee.getOptionHtml((employee.getIdDoctor().equals(employeeId)));
 		}
 
 		return selectTagOptions;

@@ -23,10 +23,10 @@
         </a>
         <div id="print-sql" style="display: flex; flex-direction: column">
             <form method="post" style="width: 50%; margin: 0 auto">
-                <input type="radio" id="query1" name="query" data-sample="SELECT * FROM tsi_kw.client WHERE id_client IN (SELECT id_client FROM tsi_kw.project GROUP BY id_client HAVING Count(tsi_kw.project.id_client) > ?)">
-                <label for="query1">Select clients that have more than <input onchange="modifyQuery(1)" id="param1" type="number" step="1" min="1" style="width: 25px"> project</label><br>
+                <input type="radio" id="query1" name="query" data-sample="SELECT * FROM tsi_kw.client WHERE id_client IN (SELECT id_client FROM tsi_kw.department GROUP BY id_client HAVING Count(tsi_kw.department.id_client) > ?)">
+                <label for="query1">Select clients that have more than <input onchange="modifyQuery(1)" id="param1" type="number" step="1" min="1" style="width: 25px"> department</label><br>
                 <span id="string1" class="query">
-                    SELECT * FROM tsi_kw.client WHERE id_client IN (SELECT id_client FROM tsi_kw.project GROUP BY id_client HAVING Count(tsi_kw.project.id_client) > 1)
+                    SELECT * FROM tsi_kw.client WHERE id_client IN (SELECT id_client FROM tsi_kw.department GROUP BY id_client HAVING Count(tsi_kw.department.id_client) > 1)
                 </span> <br>
                 <input type="radio" id="query2" name="query" data-sample="SELECT * FROM tsi_kw.client WHERE address = '?'">
                 <label for="query2">Select clients with address = <input onchange="modifyQuery(2)" id="param2" type="text" style="width: 90px"></label><br>

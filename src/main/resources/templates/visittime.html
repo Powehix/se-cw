@@ -1,16 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>Employees</title>
+    <title>Visit Time</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/client-page.css" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/left-menu.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/work-time.css" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:600">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Marcellus">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/js/hospital-frontend.js"></script>
 </head>
-<body data-main-class="doctor">
+<body data-main-class="work-time" data-department-id="">
     <div class="main">
         <div class="left-menu">
             <div class="fixed-menu">
@@ -24,15 +25,15 @@
                 </a>
                 <a class="left-menu-element" href="/doctor">
                     <img src="/images/people.png" class="left-menu-image">
-                    <span class="left-menu-link"> EMPLOYEES </span>
+                    <span class="left-menu-link"> DOCTORS </span>
                 </a>
-                <a class="left-menu-element" href="/project">
+                <a class="left-menu-element" href="/department">
                     <img src="/images/business.png" class="left-menu-image">
-                    <span class="left-menu-link"> PROJECTS </span>
+                    <span class="left-menu-link"> DEPARTMENTS </span>
                 </a>
                 <a class="left-menu-element" href="/work-time">
                 <img src="/images/time.png" class="left-menu-image">
-                <span class="left-menu-link"> WORK TIME </span>
+                <span class="left-menu-link"> VISIT TIME </span>
             </a>
             </div>
             <div id="data-form-place">
@@ -41,16 +42,16 @@
         <div class="left-menu-minimizer"></div>
         <div class="body">
             <div class="header">
-                <span>Employees</span>
+                <span id="page-title">Visit Time</span>
             </div>
-            <div class="footer-actions">
-                <a onclick="openDataForm(0, true);">
-                    <img src="/images/add.png" class="left-menu-image">
-                    <span>ADD NEW EMPLOYEE</span>
+            <div class="footer-actions" id="action-buttons">
+                <a onclick="openTimeFilter()">
+                    <img src="/images/people.png" class="left-menu-image">
+                    <span>SELECT DOCTOR</span>
                 </a>
-                <a onclick="downloadReadingList();">
+                <a onclick="downloadReadingList()">
                     <img src="/images/share.png" class="left-menu-image">
-                    <span>MAKE LIST OF ALL EMPLOYEES</span>
+                    <span>MAKE LIST OF VISIT TIME FOR ALL</span>
                 </a>
             </div>
             <div id="body-content" class="body-content">

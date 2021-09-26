@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Doctor {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id_employee;
+    private Integer id_doctor;
 
     private Integer id_department;
 
@@ -73,19 +73,19 @@ public class Doctor {
         this.id_department = id_department;
     }
 
-    public Integer getIdEmployee() {
-        return id_employee;
+    public Integer getIdDoctor() {
+        return id_doctor;
     }
 
-    public void setIdEmployee(Integer id_employee) {
-        this.id_employee = id_employee;
+    public void setIdDoctor(Integer id_doctor) {
+        this.id_doctor = id_doctor;
     }
 
     public String getOptionHtml(Boolean isSelected) {
         if (isSelected)
-            return "<option value=\"" + getIdEmployee() + "\" selected>" + getName() + " " + getSurname() + "</option>";
+            return "<option value=\"" + getIdDoctor() + "\" selected>" + getName() + " " + getSurname() + "</option>";
         else
-            return "<option value=\"" + getIdEmployee() + "\">" + getName() + " " + getSurname() + "</option>";
+            return "<option value=\"" + getIdDoctor() + "\">" + getName() + " " + getSurname() + "</option>";
     }
 
     public String getWorkTime() {

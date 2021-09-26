@@ -20,7 +20,7 @@ function checkInputOnEntering() {
 
 function loadAllObjectsToPage() {
     if (mainEntityClass === 'task')
-        loadProjectBoard($("body").attr('data-project-id'));
+        loadDepartmentBoard($("body").attr('data-department-id'));
     else {
         $.ajax({
             url: '/' + mainEntityClass +'/all',
@@ -51,8 +51,8 @@ function entityRemoving(objectId, specificClass = false) {
             if (data === 'Not Found!') {
                 alert('This data does not exist!');
             }
-            if (deletingClass === 'project') {
-                window.open('/project/');
+            if (deletingClass === 'department') {
+                window.open('/department/');
             } else if (deletingClass === 'work-time') {
                 $('#' + deletingClass + '-' + objectId).remove();
                 hideForm('timelog-form');
@@ -70,7 +70,7 @@ function openDataForm(objectId, isNewObjectRequired = false, className = undefin
     className ? userClass = className : userClass = mainEntityClass;
 
     if (isNewObjectRequired && mainEntityClass === 'task' && className !== 'work-time') {
-        objectId = $("body").attr('data-project-id');
+        objectId = $("body").attr('data-department-id');
     }
 
     $.ajax({
@@ -137,7 +137,7 @@ function submitDataForm(formId) {
         data: form_data,
         success: function (data) {
             if (data === 'Saved') {
-                if (post_url === '/project/save' && formId === 'edit-entity-form')
+                if (post_url === '/department/save' && formId === 'edit-entity-form')
                     document.getElementById('page-title').textContent = inputs[0].value;
 
                 hideForm(formId);
@@ -184,31 +184,31 @@ function openTimeFilter() {
     });
 }
 
-function openProjectBoard(projectId, projectName) {
+function openDepartmentBoard(departmentId, departmentName) {
     var pageTitle = document.getElementById('page-title');
-    pageTitle.textContent = projectName;
+    pageTitle.textContent = departmentName;
     var bodyContent = document.getElementById('body-content');
-    bodyContent.classList.add('project-board');
+    bodyContent.classList.add('department-board');
     bodyContent.innerHTML = "";
     mainEntityClass = 'task';
-    $("body").attr('data-project-id', projectId);
+    $("body").attr('data-department-id', departmentId);
 
-    loadProjectBoard(projectId);
+    loadDepartmentBoard(departmentId);
 
     first = $('#action-buttons span').get(0);
     second = $('#action-buttons span').get(1);
     first.innerText  = 'ADD NEW TASK';
     second.innerText = 'MAKE LIST OF ALL TASKS';
     var actionsHtml = document.getElementById('action-buttons').innerHTML;
-    actionsHtml += "<a onclick=\"openDataForm('" + projectId + "', false, 'project')\">" +
+    actionsHtml += "<a onclick=\"openDataForm('" + departmentId + "', false, 'department')\">" +
         "<img src=\"/images/edit.png\" class=\"left-menu-image\"><span>EDIT</span></a>";
 
     $('#action-buttons').html(actionsHtml);
 }
 
-function loadProjectBoard(id) {
+function loadDepartmentBoard(id) {
     $.ajax({
-        url: '/project-board',
+        url: '/department-board',
         type: "post",
         data: "id=" + id,
         success: function (data) {

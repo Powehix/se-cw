@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class WorkTimeController {
+public class VisitTimeController {
 	@Autowired
 	private DoctorRepository doctorRepository;
 
@@ -27,12 +27,12 @@ public class WorkTimeController {
 
 	@GetMapping("/work-time")
 	public String getEntityPage() {
-		return "worktime";
+		return "visittime";
 	}
 
 	@GetMapping("/work-time/print")
 	public String getEntityPrintPage() {
-		return "worktimeprint";
+		return "visittimeprint";
 	}
 
 	@PostMapping("/work-time/form")
@@ -87,7 +87,7 @@ public class WorkTimeController {
 
 		String requestResult = "";
 		if (client != null) {
-			requestResult = "<span id=\"filter-name\">Work time of: " + client.getName() + " " + client.getSurname() + "</span><div id=\"time-history\">";
+			requestResult = "<span id=\"filter-name\">Visit time of: " + client.getName() + " " + client.getSurname() + "</span><div id=\"time-history\">";
 
 			for (VisitTime visitTime : allEntities) {
 				if (visitTime.getIdClient() == employeeId)

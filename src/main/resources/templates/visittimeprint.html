@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Work time to print</title>
+    <title>Visit time to print</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" media="all" href="/css/client-print-page.css" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:600">
@@ -16,25 +16,25 @@
             <img src="/images/main.png" alt="Logo image">
             <span>Hospital</span>
         </a>
-        <span>Work Time</span>
+        <span>Visit Time</span>
         <a onclick="window.print()" class="print-button">
             <img src="/images/share.png" class="left-menu-image">
-            <span>PRINT LIST OF WORK TIME FOR ALL</span>
+            <span>PRINT LIST OF VISIT TIME FOR ALL</span>
         </a>
         <div id="print-sql" style="display: flex; flex-direction: column">
             <form method="post" style="width: 50%; margin: 0 auto">
                 <input type="radio" id="query1" name="query" data-sample="SELECT * FROM tsi_kw.work_time WHERE time > '?h' AND time LIKE '%h%'">
-                <label for="query1">Select work time bigger than <input onchange="modifyQuery(1)" id="param1" type="number" step="1" min="1" style="width: 65px"> hours</label><br>
+                <label for="query1">Select visit time bigger than <input onchange="modifyQuery(1)" id="param1" type="number" step="1" min="1" style="width: 65px"> hours</label><br>
                 <span id="string1" class="query">
                     SELECT * FROM tsi_kw.work_time WHERE time > '' AND time LIKE '%h%'
                 </span> <br>
                 <input type="radio" id="query2" name="query" data-sample="SELECT * FROM tsi_kw.work_time WHERE date LIKE '?%'">
-                <label for="query2">Select work time which logged in = <input onchange="modifyQuery(2)" id="param2" type="number" step="1" min="2020" style="width: 90px"> year</label><br>
+                <label for="query2">Select visit time which logged in = <input onchange="modifyQuery(2)" id="param2" type="number" step="1" min="2020" style="width: 90px"> year</label><br>
                 <span id="string2" class="query">
                     SELECT * FROM tsi_kw.work_time WHERE date LIKE '%'
                 </span> <br>
                 <input checked type="radio" id="query3" name="query" value="SELECT * FROM tsi_kw.work_time">
-                <label for="query3">Select all work time</label> <br>
+                <label for="query3">Select all visit time</label> <br>
                 <span id="string3" class="query">
                     SELECT * FROM tsi_kw.work_time
                 </span> <br>
