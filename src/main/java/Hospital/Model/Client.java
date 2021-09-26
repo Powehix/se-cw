@@ -19,6 +19,8 @@ public class Client {
 
     private String email;
 
+    private String personal_code;
+
     public Integer getIdClient() {
         return id_client;
     }
@@ -64,5 +66,13 @@ public class Client {
             return "<option value=\"" + getIdClient() + "\" selected>" + getContactName() + " " + getContactSurname() + "</option>";
         else
             return "<option value=\"" + getIdClient() + "\">" + getContactName() + " " + getContactSurname() + "</option>";
+    }
+
+    public String getPersonalCode() {
+        return personal_code;
+    }
+
+    public void setPersonalCode(String personalCode) {
+        this.personal_code = personalCode;
     }
 }

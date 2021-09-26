@@ -11,6 +11,8 @@ public class Position {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_position;
 
+    private Integer id_department;
+
     private String title;
 
     public Integer getIdPosition() {
@@ -34,5 +36,13 @@ public class Position {
             return "<option value=\"" + getIdPosition() + "\" selected>" + getTitle() + "</option>";
         else
             return "<option value=\"" + getIdPosition() + "\">" + getTitle() + "</option>";
+    }
+
+    public Integer getIdDepartment() {
+        return id_department;
+    }
+
+    public void setIdDepartment(Integer idDepartment) {
+        this.id_department = idDepartment;
     }
 }

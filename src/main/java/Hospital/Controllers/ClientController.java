@@ -145,10 +145,11 @@ public class ClientController {
 		return "<div id=\"form-edit-container\" class=\"form-place-holder\">\n" +
 				"                    <div class=\"form-container\">\n" +
 				"                        <form id=\"edit-entity-form\" action=\"/client/save\" method=\"post\">\n" +
-				"                            <p>Contact name: <input type=\"text\" name=\"contactName\" class=\"data\" value='"+ client.getContactName() +"'/></p>\n" +
-				"                            <p>Contact surname: <input type=\"text\" name=\"contactSurname\" class=\"data\" value='"+ client.getContactSurname() + "'/></p>\n" +
-				"                            <p>Phone: <input type=\"text\" name=\"phone\" class=\"data\" value='"+ client.getPhone() + "'/></p>\n" +
-				"                            <p>Email: <input type=\"text\" name=\"email\" class=\"data\" value='"+ client.getEmail() + "'/></p>\n" +
+				"               	         <p>Name: <input required type=\"text\" name=\"contactName\" class=\"data\"/></p>\n" +
+				"           	             <p>Surname: <input required type=\"text\" name=\"contactSurname\" class=\"data\"/></p>\n" +
+				"       	                 <p>Personal Code: <input required type=\"text\"name=\"persCode\" class=\"data\"/></p>\n" +
+				"   	                     <p>Phone: <input type=\"text\" name=\"phone\" class=\"data\"/></p>\n" +
+				"	                         <p>Email: <input type=\"text\" name=\"email\" class=\"data\"/></p>\n" +
 				"                            <input type=\"hidden\" name=\"idClient\" class=\"data\" value='"+ client.getIdClient() +"'/>"+
 				"                        </form>\n" +
 				"                        <div class=\"form-navigation\">\n" +
@@ -173,10 +174,9 @@ public class ClientController {
 		return "<div id=\"form-add-container\" class=\"form-place-holder\">\n" +
 				"                <div class=\"form-container\">\n" +
 				"                    <form id=\"add-entity-form\" action=\"/client/save\" method=\"post\">\n" +
-				"                        <p>Company title: <input type=\"text\" name=\"title\" class=\"data\"/></p>\n" +
-				"                        <p>Contact name: <input type=\"text\" name=\"contactName\" class=\"data\"/></p>\n" +
-				"                        <p>Contact surname: <input type=\"text\" name=\"contactSurname\" class=\"data\"/></p>\n" +
-				"                        <p>Address: <input type=\"text\"name=\"address\" class=\"data\"/></p>\n" +
+				"                        <p>Name: <input required type=\"text\" name=\"contactName\" class=\"data\"/></p>\n" +
+				"                        <p>Surname: <input required type=\"text\" name=\"contactSurname\" class=\"data\"/></p>\n" +
+				"                        <p>Personal Code: <input required type=\"text\"name=\"persCode\" class=\"data\"/></p>\n" +
 				"                        <p>Phone: <input type=\"text\" name=\"phone\" class=\"data\"/></p>\n" +
 				"                        <p>Email: <input type=\"text\" name=\"email\" class=\"data\"/></p>\n" +
 				"                    </form>\n" +
