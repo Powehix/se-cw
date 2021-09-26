@@ -17,13 +17,10 @@ import java.util.List;
 @Controller
 public class WorkTimeController {
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	private DoctorRepository doctorRepository;
 
 	@Autowired
-	private TaskRepository taskRepository;
-
-	@Autowired
-	private WorkTimeRepository workTimeRepository;
+	private VisitTimeRepository visitTimeRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -44,7 +41,7 @@ public class WorkTimeController {
 			return workTimeGetAddFormHtml(id);
 		}
 
-		WorkTime entity = workTimeRepository.findById(id).orElse(null);
+		VisitTime entity = visitTimeRepository.findById(id).orElse(null);
 
 		if (entity == null) {
 			return "Not found!";
@@ -54,14 +51,14 @@ public class WorkTimeController {
 	}
 
 	@PostMapping("/work-time/filter")
-	public @ResponseBody String loadWorkTimeFilterForm() {
+	public @ResponseBody String loadVisitTimeFilterForm() {
 		return workTimeGetFilterFormHtml();
 	}
 
 	@PostMapping("/work-time/remove")
 	public @ResponseBody String deleteSelectedEntity(Integer id) {
-		if (workTimeRepository.existsById(id)) {
-			workTimeRepository.deleteById(id);
+		if (visitTimeRepository.existsById(id)) {
+			visitTimeRepository.deleteById(id);
 			return "Deleted";
 		} else {
 			return "Not found!";
@@ -70,31 +67,31 @@ public class WorkTimeController {
 
 	@PostMapping(path="/work-time/save")
 	public @ResponseBody
-	String addNewEntity (@ModelAttribute WorkTime workTimeData)
+	String addNewEntity (@ModelAttribute VisitTime visitTimeData)
 	{
 		//----- Saving by converted to object received params -----
-		workTimeRepository.save(workTimeData);
+		visitTimeRepository.save(visitTimeData);
 		return "Saved";
 	}
 
 	@PostMapping(path="/work-time/all")
-	public @ResponseBody String getAllEmployeeWorkTime(Integer employeeId) {
+	public @ResponseBody String getAllClientWorkTime(Integer employeeId) {
 		if (employeeId == null) {
 			return "";
 		}
 
-		ArrayList<WorkTime> allEntities = new ArrayList<>();
-		workTimeRepository.findAll().forEach(allEntities::add);
+		ArrayList<VisitTime> allEntities = new ArrayList<>();
+		visitTimeRepository.findAll().forEach(allEntities::add);
 
-		Employee employee = employeeRepository.findById(employeeId).orElse(null);
+		Doctor client = doctorRepository.findById(employeeId).orElse(null);
 
 		String requestResult = "";
-		if (employee != null) {
-			requestResult = "<span id=\"filter-name\">Work time of: " + employee.getName() + " " + employee.getSurname() + "</span><div id=\"time-history\">";
+		if (client != null) {
+			requestResult = "<span id=\"filter-name\">Work time of: " + client.getName() + " " + client.getSurname() + "</span><div id=\"time-history\">";
 
-			for (WorkTime workTime : allEntities) {
-				if (workTime.getIdEmployee() == employeeId)
-					requestResult += workTimeToHtmlBlock(workTime);
+			for (VisitTime visitTime : allEntities) {
+				if (visitTime.getIdClient() == employeeId)
+					requestResult += workTimeToHtmlBlock(visitTime);
 			}
 
 			requestResult += "</div>";
@@ -107,22 +104,22 @@ public class WorkTimeController {
 	public @ResponseBody
 	String executeSql (String query)
 	{
-		RowMapper<WorkTime> rm = (ResultSet result, int rowNum) -> {
-			WorkTime object = new WorkTime();
+		RowMapper<VisitTime> rm = (ResultSet result, int rowNum) -> {
+			VisitTime object = new VisitTime();
 
-			object.setIdWorkTime(result.getInt("id_work_time"));
-			object.setIdTask(result.getInt("id_task"));
-			object.setIdEmployee(result.getInt("id_employee"));
+			object.setIdVisitTime(result.getInt("id_work_time"));
+			object.setIdDoctor(result.getInt("id_task"));
+			object.setIdClient(result.getInt("id_employee"));
 			object.setTime(result.getString("time"));
 			object.setDate(result.getString("date"));
 
 			return object;
 		};
 
-		List<WorkTime> clients = jdbcTemplate.query(query, new Object[]{}, rm);
+		List<VisitTime> clients = jdbcTemplate.query(query, new Object[]{}, rm);
 
 		String requestResult = "";
-		for (WorkTime oneClient : clients) {
+		for (VisitTime oneClient : clients) {
 			requestResult += workTimeToHtmlFullBlock(oneClient);
 		}
 
@@ -130,58 +127,58 @@ public class WorkTimeController {
 	}
 
 	@PostMapping(path="/work-time/all/print")
-	public @ResponseBody String getAllEmployeesWorkTime() {
-		ArrayList<WorkTime> allEntities = new ArrayList<>();
-		workTimeRepository.findAll().forEach(allEntities::add);
+	public @ResponseBody String getAllClientsWorkTime() {
+		ArrayList<VisitTime> allEntities = new ArrayList<>();
+		visitTimeRepository.findAll().forEach(allEntities::add);
 
 		String requestResult = "";
-		for (WorkTime oneEntity : allEntities) {
+		for (VisitTime oneEntity : allEntities) {
 			requestResult += workTimeToHtmlFullBlock(oneEntity);
 		}
 
 		return requestResult;
 	}
 
-	public String workTimeToHtmlBlock(WorkTime time) {
-		Task task = taskRepository.findById(time.getIdTask()).orElse(null);
+	public String workTimeToHtmlBlock(VisitTime time) {
+//		Doctor task = taskRepository.findById(time.getIdDoctor()).orElse(null);
 
-		return "<div id=\"work-time-" + time.getIdWorkTime() + "\" class=\"company-element entity\" onclick=\"openDataForm('"+ time.getIdWorkTime() +"')\">\n" +
+		return "test"/*"<div id=\"work-time-" + time.getIdVisitTime() + "\" class=\"company-element entity\" onclick=\"openDataForm('"+ time.getIdVisitTime() +"')\">\n" +
 				"<div class=\"time-info-container\">\n" +
-				"<span>Task "+ task.getIdTask() +"</span>\n" +
+				"<span>Doctor "+ task.getIdDoctor() +"</span>\n" +
 				"<span>"+ task.getShortTitle() +"</span>\n" +
 				"<span>Worked: " + time.getTime() + "</span>\n" +
 				"<span>At: " + time.getDate() + "</span>\n" +
 				"</div>\n" +
-				"</div>";
+				"</div>"*/;
 	}
 
-	public String workTimeToHtmlFullBlock(WorkTime time) {
-		Task task = taskRepository.findById(time.getIdTask()).orElse(null);
-		Employee employee = employeeRepository.findById(time.getIdEmployee()).orElse(null);
+	public String workTimeToHtmlFullBlock(VisitTime time) {
+//		Doctor task = taskRepository.findById(time.getIdDoctor()).orElse(null);
+		Doctor client = doctorRepository.findById(time.getIdClient()).orElse(null);
 
 		return "<div class=\"company-element entity\">\n" +
 				"<div class=\"company-info-container\">\n" +
-				"<p><span>Employee</span><span>" + employee.getName() + " " + employee.getSurname() +"</span></p>\n" +
-				"<p><span>Task</span><span>["+ time.getIdTask() + "] " + task.getTitle() +"</span></p>\n" +
+				"<p><span>Doctor</span><span>" + client.getName() + " " + client.getSurname() +"</span></p>\n" +
+				"<p><span>Doctor</span><span>["+ time.getIdDoctor() + "]</span></p>\n" +
 				"<p><span>Worked</span><span>"+ time.getTime() +"</span></p>\n" +
 				"<p><span>Date</span><span>" + time.getDate() + "</span></p>\n" +
 				"</div>\n" +
 				"</div>";
 	}
 
-	public String workTimeGetEditFormHtml(WorkTime time) {
+	public String workTimeGetEditFormHtml(VisitTime time) {
 		return "<div id=\"timelog-container\" class=\"form-place-holder\">\n" +
 				"                    <div class=\"form-container\">\n" +
 				"                        <form id=\"timelog-form\" action=\"/work-time/save\" method=\"post\">\n" +
-				"                            <p>Task " +
-				"<select name=\"idTask\" form=\"timelog-form\">" +
-				getTaskList(time.getIdTask()) +
+				"                            <p>Doctor " +
+				"<select name=\"idDoctor\" form=\"timelog-form\">" +
+				getDoctorList(time.getIdDoctor()) +
 				"</select></p>\n" +
-				"                            <p>Employee " +
-				"<select name=\"idEmployee\" form=\"timelog-form\">" +
-				getEmployeeList(time.getIdEmployee()) +
+				"                            <p>Doctor " +
+				"<select name=\"idClient\" form=\"timelog-form\">" +
+				getClientList(time.getIdClient()) +
 				"</select></p>\n" +
-				"                        <input type=\"hidden\" name=\"idWorkTime\" value=\""+ time.getIdWorkTime() +"\"/>\n" +
+				"                        <input type=\"hidden\" name=\"idVisitTime\" value=\""+ time.getIdVisitTime() +"\"/>\n" +
 				"                        <p>Time <input type=\"text\" name=\"time\" class=\"data\" value=\""+ time.getTime() +"\"/></p>\n" +
 				"                        <p>Date <input type=\"date\" name=\"date\" class=\"data\" value=\"" + time.getDate() + "\"/></p>\n" +
 				"                        </form>\n" +
@@ -190,7 +187,7 @@ public class WorkTimeController {
 				"                                <img src=\"/images/save.png\" class=\"form-menu-image\">\n" +
 				"                                <span>UPDATE</span>\n" +
 				"                            </a>\n" +
-				"                            <a onclick=\"entityRemoving('"+ time.getIdWorkTime() +"')\" class=\"button-a\">\n" +
+				"                            <a onclick=\"entityRemoving('"+ time.getIdVisitTime() +"')\" class=\"button-a\">\n" +
 				"                                <img src=\"/images/delete.png\" class=\"form-menu-image\">\n" +
 				"                                <span>REMOVE</span>\n" +
 				"                            </a>\n" +
@@ -207,11 +204,11 @@ public class WorkTimeController {
 		return "<div id=\"timelog-container\" class=\"form-place-holder\">\n" +
 				"                <div class=\"form-container\">\n" +
 				"                    <form id=\"timelog-form\" action=\"/work-time/save\" method=\"post\">\n" +
-				"                            <p>Employee " +
-				"<select name=\"idEmployee\" form=\"timelog-form\">" +
-				getEmployeeList(null) +
+				"                            <p>Doctor " +
+				"<select name=\"idClient\" form=\"timelog-form\">" +
+				getClientList(null) +
 				"</select></p>\n" +
-				"                        <input type=\"hidden\" name=\"idTask\" value=\""+ taskId +"\"/>\n" +
+				"                        <input type=\"hidden\" name=\"idDoctor\" value=\""+ taskId +"\"/>\n" +
 				"                        <p>Time <input type=\"text\" name=\"time\" class=\"data\"/></p>\n" +
 				"                        <p>Date <input type=\"date\" name=\"date\" class=\"data\"/></p>\n" +
 				"                    </form>\n" +
@@ -237,9 +234,9 @@ public class WorkTimeController {
 		return "<div id=\"form-add-container\" class=\"form-place-holder\">\n" +
 				"                <div class=\"form-container\">\n" +
 				"                    <form id=\"add-entity-form\" action=\"/work-time/all\" method=\"post\">\n" +
-				"<p>Employee: " +
+				"<p>Doctor: " +
 				"<select name=\"employeeId\" form=\"add-entity-form\">" +
-				getEmployeeList(null) +
+				getClientList(null) +
 				"</select></p>\n" +
 				"                    </form>\n" +
 				"                    <div class=\"form-navigation\">\n" +
@@ -257,27 +254,28 @@ public class WorkTimeController {
 				"            </div>";
 	}
 
-	public String getEmployeeList(Integer employeeId) {
-		ArrayList<Employee> employees = new ArrayList<>();
-		employeeRepository.findAll().forEach(employees::add);
+	public String getClientList(Integer employeeId) {
+		ArrayList<Doctor> employees = new ArrayList<>();
+		doctorRepository.findAll().forEach(employees::add);
 
-		String selectTagOptions = "";
-		for (Employee employee : employees) {
-			selectTagOptions += employee.getOptionHtml((employee.getIdEmployee().equals(employeeId)));
-		}
+		String selectTagOptions = "test3";
+		/*for (Doctor doctor : employees) {
+			selectTagOptions += doctor.getOptionHtml((doctor.getIdClient().equals(employeeId)));
+		}*/
 
 		return selectTagOptions;
 	}
 
-	public String getTaskList(Integer taskId) {
-		ArrayList<Task> tasks = new ArrayList<>();
-		taskRepository.findAll().forEach(tasks::add);
-
-		String selectTagOptions = "";
-		for (Task task : tasks) {
-			selectTagOptions += task.getOptionHtml((task.getIdTask().equals(taskId)));
-		}
-
-		return selectTagOptions;
+	public String getDoctorList(Integer taskId) {
+//		ArrayList<Doctor> tasks = new ArrayList<>();
+//		taskRepository.findAll().forEach(tasks::add);
+//
+//		String selectTagOptions = "";
+//		for (Doctor task : tasks) {
+//			selectTagOptions += task.getOptionHtml((task.getIdDoctor().equals(taskId)));
+//		}
+//
+//		return selectTagOptions;
+		return "";
 	}
 }

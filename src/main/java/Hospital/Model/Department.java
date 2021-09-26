@@ -6,19 +6,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Team {
+public class Department {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id_team;
+    private Integer id_department;
 
     private String title;
 
-    public Integer getIdTeam() {
-        return id_team;
+    public Integer getIdDepartment() {
+        return id_department;
     }
 
-    public void setIdTeam(Integer id_team) {
-        this.id_team = id_team;
+    public void setIdDepartment(Integer id_department) {
+        this.id_department = id_department;
     }
 
     public String getTitle() {
@@ -31,8 +31,8 @@ public class Team {
 
     public String getOptionHtml(Boolean isSelected) {
         if (isSelected)
-            return "<option value=\"" + getIdTeam() + "\" selected>" + getTitle() + "</option>";
+            return "<option value=\"" + getIdDepartment() + "\" selected>" + getTitle() + "</option>";
         else
-            return "<option value=\"" + getIdTeam() + "\">" + getTitle() + "</option>";
+            return "<option value=\"" + getIdDepartment() + "\">" + getTitle() + "</option>";
     }
 }

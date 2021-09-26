@@ -6,41 +6,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class WorkTime {
+public class VisitTime {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id_work_time;
+    private Integer id_visit_time;
 
-    private Integer id_task;
+    private Integer id_doctor;
 
-    private Integer id_employee;
+    private Integer id_client;
 
     private String time;
 
     private String date;
 
-    public Integer getIdWorkTime() {
-        return id_work_time;
+    public Integer getIdVisitTime() {
+        return id_visit_time;
     }
 
-    public void setIdWorkTime(Integer id_work_time) {
-        this.id_work_time = id_work_time;
+    public void setIdVisitTime(Integer id_visit_time) {
+        this.id_visit_time = id_visit_time;
     }
 
-    public Integer getIdTask() {
-        return id_task;
+    public Integer getIdDoctor() {
+        return id_doctor;
     }
 
-    public void setIdTask(Integer id_task) {
-        this.id_task = id_task;
+    public void setIdDoctor(Integer id_doctor) {
+        this.id_doctor = id_doctor;
     }
 
-    public Integer getIdEmployee() {
-        return id_employee;
+    public Integer getIdClient() {
+        return id_client;
     }
 
-    public void setIdEmployee(Integer id_employee) {
-        this.id_employee = id_employee;
+    public void setIdClient(Integer id_client) {
+        this.id_client = id_client;
     }
 
     public String getTime() {

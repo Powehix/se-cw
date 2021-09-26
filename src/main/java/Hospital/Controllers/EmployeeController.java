@@ -18,13 +18,13 @@ import java.util.List;
 public class EmployeeController {
 
 	@Autowired
-	public EmployeeRepository employeeRepository;
+	public DoctorRepository doctorRepository;
 
 	@Autowired
 	private PositionRepository positionRepository;
 
 	@Autowired
-	private TeamRepository teamRepository;
+	private DepartmentRepository departmentRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -45,7 +45,7 @@ public class EmployeeController {
 			return employeeGetAddFormHtml();
 		}
 
-		Employee entity = employeeRepository.findById(id).orElse(null);
+		Doctor entity = doctorRepository.findById(id).orElse(null);
 
 		if (entity == null) {
 			return "Not found!";
@@ -56,8 +56,8 @@ public class EmployeeController {
 
 	@PostMapping("/employee/remove")
 	public @ResponseBody String deleteSelectedEntity(Integer id) {
-		if (employeeRepository.existsById(id)) {
-			employeeRepository.deleteById(id);
+		if (doctorRepository.existsById(id)) {
+			doctorRepository.deleteById(id);
 			return "Deleted";
 		} else {
 			return "Not found!";
@@ -66,19 +66,19 @@ public class EmployeeController {
 
 	@PostMapping(path="/employee/save")
 	public @ResponseBody
-	String addNewEntity (@ModelAttribute Employee newEmployee)
+	String addNewEntity (@ModelAttribute Doctor newEmployee)
 	{
 		//----- Saving by converted to object received params -----
-		employeeRepository.save(newEmployee);
+		doctorRepository.save(newEmployee);
 		return "Saved";
 	}
 
 	@PostMapping(path="/employee/all")
 	public @ResponseBody String getAllUsers() {
-		ArrayList<Employee> allEntities = new ArrayList<>();
-		employeeRepository.findAll().forEach(allEntities::add);
+		ArrayList<Doctor> allEntities = new ArrayList<>();
+		doctorRepository.findAll().forEach(allEntities::add);
 		String requestResult = "";
-		for (Employee oneEntity : allEntities) {
+		for (Doctor oneEntity : allEntities) {
 			requestResult += employeeToHtmlBlock(oneEntity);
 		}
 
@@ -89,11 +89,11 @@ public class EmployeeController {
 	public @ResponseBody
 	String executeSql (String query)
 	{
-		RowMapper<Employee> rm = (ResultSet result, int rowNum) -> {
-			Employee object = new Employee();
+		RowMapper<Doctor> rm = (ResultSet result, int rowNum) -> {
+			Doctor object = new Doctor();
 
 			object.setIdEmployee(result.getInt("id_employee"));
-			object.setIdTeam(result.getInt("id_team"));
+			object.setIdDepartment(result.getInt("id_department"));
 			object.setIdPosition(result.getInt("id_position"));
 			object.setName(result.getString("name"));
 			object.setSurname(result.getString("surname"));
@@ -103,10 +103,10 @@ public class EmployeeController {
 			return object;
 		};
 
-		List<Employee> clients = jdbcTemplate.query(query, new Object[]{}, rm);
+		List<Doctor> clients = jdbcTemplate.query(query, new Object[]{}, rm);
 
 		String requestResult = "";
-		for (Employee oneClient : clients) {
+		for (Doctor oneClient : clients) {
 			requestResult += employeeToHtmlFullBlock(oneClient);
 		}
 
@@ -115,22 +115,22 @@ public class EmployeeController {
 
 	@PostMapping(path="/employee/all/print")
 	public @ResponseBody String getAllUsersToPrint() {
-		ArrayList<Employee> allEntities = new ArrayList<>();
-		employeeRepository.findAll().forEach(allEntities::add);
+		ArrayList<Doctor> allEntities = new ArrayList<>();
+		doctorRepository.findAll().forEach(allEntities::add);
 		String requestResult = "";
-		for (Employee oneEntity : allEntities) {
+		for (Doctor oneEntity : allEntities) {
 			requestResult += employeeToHtmlFullBlock(oneEntity);
 		}
 
 		return requestResult;
 	}
 
-	public String employeeToHtmlBlock(Employee employee) {
+	public String employeeToHtmlBlock(Doctor employee) {
 		Position position = positionRepository.findById(employee.getIdPosition()).orElse(null);
 
 		return "<div class=\"company-element entity\" onclick=\"openDataForm('"+ employee.getIdEmployee() +"')\">\n" +
 				"<div class=\"company-image-container\">\n" +
-				"<img src=\"/images/employee.png\" alt=\"Employee image\">\n" +
+				"<img src=\"/images/employee.png\" alt=\"Doctor image\">\n" +
 				"</div>\n" +
 				"<div class=\"company-info-container\">\n" +
 				"<span>" + employee.getName() + " " + employee.getSurname() +"</span>\n" +
@@ -139,22 +139,22 @@ public class EmployeeController {
 				"</div>";
 	}
 
-	public String employeeToHtmlFullBlock(Employee employee) {
+	public String employeeToHtmlFullBlock(Doctor employee) {
 		Position position = positionRepository.findById(employee.getIdPosition()).orElse(null);
-		Team team = teamRepository.findById(employee.getIdTeam()).orElse(null);
+		Department department = departmentRepository.findById(employee.getIdDepartment()).orElse(null);
 
 		return "<div class=\"company-element entity\">\n" +
 				"<div class=\"company-info-container\">\n" +
-				"<p><span>Employee</span><span>" + employee.getName() + " " + employee.getSurname() +"</span></p>\n" +
+				"<p><span>Doctor</span><span>" + employee.getName() + " " + employee.getSurname() +"</span></p>\n" +
 				"<p><span>Position</span><span>" + position.getTitle() + "</span></p>\n" +
-				"<p><span>Team</span><span>"+ team.getTitle() +"</span></p>\n" +
+				"<p><span>Department</span><span>"+ department.getTitle() +"</span></p>\n" +
 				"<p><span>Email</span><span>"+ employee.getEmail() +"</span></p>\n" +
 				"<p><span>Phone</span><span>" + employee.getPhone() + "</span></p>\n" +
 				"</div>\n" +
 				"</div>";
 	}
 
-	public String employeeGetEditFormHtml(Employee employee) {
+	public String employeeGetEditFormHtml(Doctor employee) {
 		return "<div id=\"form-edit-container\" class=\"form-place-holder\">\n" +
 				"                    <div class=\"form-container\">\n" +
 				"                        <form id=\"edit-entity-form\" action=\"/employee/save\" method=\"post\">\n" +
@@ -164,9 +164,9 @@ public class EmployeeController {
 				"<select name=\"idPosition\" form=\"edit-entity-form\">" +
 				getPositionList(employee.getIdPosition()) +
 				"</select></p>\n" +
-				"                            <p>Team: " +
+				"                            <p>Department: " +
 				"<select name=\"idTeam\" form=\"edit-entity-form\">" +
-				getTeamList(employee.getIdTeam()) +
+				getTeamList(employee.getIdDepartment()) +
 				"</select></p>\n" +
 				"                            <p>Phone: <input type=\"text\" name=\"phone\" class=\"data\" value='"+ employee.getPhone() + "'/></p>\n" +
 				"                            <p>Email: <input type=\"text\" name=\"email\" class=\"data\" value='"+ employee.getEmail() + "'/></p>\n" +
@@ -203,12 +203,12 @@ public class EmployeeController {
 	}
 
 	public String getTeamList(Integer employeeTeamId) {
-		ArrayList<Team> teams = new ArrayList<>();
-		teamRepository.findAll().forEach(teams::add);
+		ArrayList<Department> departments = new ArrayList<>();
+		departmentRepository.findAll().forEach(departments::add);
 
 		String selectTagOptions = "";
-		for (Team team : teams) {
-			selectTagOptions += team.getOptionHtml((team.getIdTeam().equals(employeeTeamId)));
+		for (Department department : departments) {
+			selectTagOptions += department.getOptionHtml((department.getIdDepartment().equals(employeeTeamId)));
 		}
 
 		return selectTagOptions;
@@ -224,7 +224,7 @@ public class EmployeeController {
 				"<select name=\"idPosition\" form=\"add-entity-form\">" +
 				getPositionList(null) +
 				"</select></p>\n" +
-				"                            <p>Team: " +
+				"                            <p>Department: " +
 				"<select name=\"idTeam\" form=\"add-entity-form\">" +
 				getTeamList(null) +
 				"</select></p>\n" +

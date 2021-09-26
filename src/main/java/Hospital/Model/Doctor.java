@@ -6,12 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Employee {
+public class Doctor {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_employee;
 
-    private Integer id_team;
+    private Integer id_department;
 
     private Integer id_position;
 
@@ -22,6 +22,8 @@ public class Employee {
     private String email;
 
     private String phone;
+
+    private String work_time;
 
     public String getPhone() {
         return phone;
@@ -63,12 +65,12 @@ public class Employee {
         this.id_position = id_position;
     }
 
-    public Integer getIdTeam() {
-        return id_team;
+    public Integer getIdDepartment() {
+        return id_department;
     }
 
-    public void setIdTeam(Integer id_team) {
-        this.id_team = id_team;
+    public void setIdDepartment(Integer id_department) {
+        this.id_department = id_department;
     }
 
     public Integer getIdEmployee() {
@@ -84,5 +86,13 @@ public class Employee {
             return "<option value=\"" + getIdEmployee() + "\" selected>" + getName() + " " + getSurname() + "</option>";
         else
             return "<option value=\"" + getIdEmployee() + "\">" + getName() + " " + getSurname() + "</option>";
+    }
+
+    public String getWorkTime() {
+        return work_time;
+    }
+
+    public void setWorkTime(String work_time) {
+        this.work_time = work_time;
     }
 }

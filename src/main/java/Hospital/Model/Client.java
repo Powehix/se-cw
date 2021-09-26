@@ -15,10 +15,6 @@ public class Client {
 
     private String contact_surname;
 
-    private String address;
-
-    private String title;
-
     private String phone;
 
     private String email;
@@ -55,22 +51,6 @@ public class Client {
         this.contact_surname = contact_surname;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -81,8 +61,8 @@ public class Client {
 
     public String getOptionHtml(Boolean isSelected) {
         if (isSelected)
-            return "<option value=\"" + getIdClient() + "\" selected>" + getTitle() + "</option>";
+            return "<option value=\"" + getIdClient() + "\" selected>" + getContactName() + " " + getContactSurname() + "</option>";
         else
-            return "<option value=\"" + getIdClient() + "\">" + getTitle() + "</option>";
+            return "<option value=\"" + getIdClient() + "\">" + getContactName() + " " + getContactSurname() + "</option>";
     }
 }

@@ -1,6 +1,6 @@
 package Hospital;
 
-import Hospital.Model.Employee;
+import Hospital.Model.Doctor;
 import Hospital.Model.Task;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +36,7 @@ public class HospitalApplicationTest {
 
 	@Test
 	public void testGetEmployeeName() {
-		Employee newEmployee = new Employee();
+		Doctor newEmployee = new Doctor();
 		newEmployee.setName("Ilja");
 
 		assertEquals(newEmployee.getName(), "Ilja", "Class returned not the same name, as was specified: Ilja");

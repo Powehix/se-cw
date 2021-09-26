@@ -78,8 +78,6 @@ public class ClientController {
 			object.setIdClient(result.getInt("id_client"));
 			object.setContactName(result.getString("contact_name"));
 			object.setContactSurname(result.getString("contact_surname"));
-			object.setAddress(result.getString("address"));
-			object.setTitle(result.getString("title"));
 			object.setEmail(result.getString("email"));
 			object.setPhone(result.getString("phone"));
 
@@ -127,7 +125,6 @@ public class ClientController {
 				"<img src=\"/images/company.png\" alt=\"Client company image\">\n" +
 				"</div>\n" +
 				"<div class=\"company-info-container\">\n" +
-				"<span>" + client.getTitle() + "</span>\n" +
 				"<span>" + client.getContactName() + " " + client.getContactSurname() +"</span>\n" +
 				"<span>"+ client.getEmail() +"</span>\n" +
 				"</div>\n" +
@@ -137,10 +134,8 @@ public class ClientController {
 	public String clientToHtmlFullBlock(Client client) {
 		return "<div class=\"company-element entity\">\n" +
 				"<div class=\"company-info-container\">\n" +
-				"<p><span>Title</span><span>" + client.getTitle() + "</span></p>\n" +
 				"<p><span>Contact</span><span>" + client.getContactName() + " " + client.getContactSurname() +"</span></p>\n" +
 				"<p><span>Email</span><span>"+ client.getEmail() +"</span></p>\n" +
-				"<p><span>Address</span><span>" + client.getAddress() + "</span></p>\n" +
 				"<p><span>Phone</span><span>" + client.getPhone() + "</span></p>\n" +
 				"</div>\n" +
 				"</div>";
@@ -150,10 +145,8 @@ public class ClientController {
 		return "<div id=\"form-edit-container\" class=\"form-place-holder\">\n" +
 				"                    <div class=\"form-container\">\n" +
 				"                        <form id=\"edit-entity-form\" action=\"/client/save\" method=\"post\">\n" +
-				"                            <p>Company title: <input type=\"text\" name=\"title\" class=\"data\" value='"+ client.getTitle() +"'/></p>\n" +
 				"                            <p>Contact name: <input type=\"text\" name=\"contactName\" class=\"data\" value='"+ client.getContactName() +"'/></p>\n" +
 				"                            <p>Contact surname: <input type=\"text\" name=\"contactSurname\" class=\"data\" value='"+ client.getContactSurname() + "'/></p>\n" +
-				"                            <p>Address: <input type=\"text\" name=\"address\" class=\"data\" value='"+ client.getAddress() + "'/></p>\n" +
 				"                            <p>Phone: <input type=\"text\" name=\"phone\" class=\"data\" value='"+ client.getPhone() + "'/></p>\n" +
 				"                            <p>Email: <input type=\"text\" name=\"email\" class=\"data\" value='"+ client.getEmail() + "'/></p>\n" +
 				"                            <input type=\"hidden\" name=\"idClient\" class=\"data\" value='"+ client.getIdClient() +"'/>"+

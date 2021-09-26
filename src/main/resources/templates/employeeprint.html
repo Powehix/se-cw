@@ -10,9 +10,9 @@
     <link rel="stylesheet" type="text/css" media="print" href="/css/client-print-mode.css" />
     <script src="/js/hospital-print.js"></script>
 </head>
-<body class="main" data-main-class="employee">
+<body class="main" data-main-class="doctor">
     <header class="header">
-        <a class="logo-block" href="/employee">
+        <a class="logo-block" href="/doctor">
             <img src="/images/main.png" alt="Logo image">
             <span>Hospital</span>
         </a>
@@ -23,20 +23,20 @@
         </a>
         <div id="print-sql" style="display: flex; flex-direction: column">
             <form method="post" style="width: 50%; margin: 0 auto">
-                <input type="radio" id="query1" name="query" data-sample="SELECT * FROM tsi_kw.employee LIMIT ?">
+                <input type="radio" id="query1" name="query" data-sample="SELECT * FROM tsi_kw.doctor LIMIT ?">
                 <label for="query1">Select first <input onchange="modifyQuery(1)" id="param1" type="number" step="1" min="1" style="width: 25px"> employees</label><br>
                 <span id="string1" class="query">
-                    SELECT * FROM tsi_kw.employee LIMIT
+                    SELECT * FROM tsi_kw.doctor LIMIT
                 </span> <br>
-                <input type="radio" id="query2" name="query" data-sample="SELECT * FROM tsi_kw.employee WHERE name = '?'">
+                <input type="radio" id="query2" name="query" data-sample="SELECT * FROM tsi_kw.doctor WHERE name = '?'">
                 <label for="query2">Select employees by name = <input onchange="modifyQuery(2)" id="param2" type="text" style="width: 90px"></label><br>
                 <span id="string2" class="query">
-                    SELECT * FROM tsi_kw.employee WHERE name = ''
+                    SELECT * FROM tsi_kw.doctor WHERE name = ''
                 </span> <br>
-                <input checked type="radio" id="query3" name="query" value="SELECT * FROM tsi_kw.employee">
+                <input checked type="radio" id="query3" name="query" value="SELECT * FROM tsi_kw.doctor">
                 <label for="query3">Select all clients</label> <br>
                 <span id="string3" class="query">
-                    SELECT * FROM tsi_kw.employee
+                    SELECT * FROM tsi_kw.doctor
                 </span> <br>
             </form>
             <a onclick="getSqlResult()" class="print-button">
