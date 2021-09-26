@@ -53,7 +53,7 @@ function entityRemoving(objectId, specificClass = false) {
             }
             if (deletingClass === 'department') {
                 window.open('/department/');
-            } else if (deletingClass === 'work-time') {
+            } else if (deletingClass === 'visit-time') {
                 $('#' + deletingClass + '-' + objectId).remove();
                 hideForm('timelog-form');
             } else
@@ -69,7 +69,7 @@ function openDataForm(objectId, isNewObjectRequired = false, className = undefin
     var userClass = '';
     className ? userClass = className : userClass = mainEntityClass;
 
-    if (isNewObjectRequired && mainEntityClass === 'task' && className !== 'work-time') {
+    if (isNewObjectRequired && mainEntityClass === 'task' && className !== 'visit-time') {
         objectId = $("body").attr('data-department-id');
     }
 
@@ -173,7 +173,7 @@ function hideForm(containerId) {
 
 function openTimeFilter() {
     $.ajax({
-        url: '/work-time/filter',
+        url: '/visit-time/filter',
         type: 'post',
         success: function (data) {
             $("#body-content").html(data);

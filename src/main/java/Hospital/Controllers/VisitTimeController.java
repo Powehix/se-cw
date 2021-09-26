@@ -25,17 +25,17 @@ public class VisitTimeController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@GetMapping("/work-time")
+	@GetMapping("/visit-time")
 	public String getEntityPage() {
 		return "visittime";
 	}
 
-	@GetMapping("/work-time/print")
+	@GetMapping("/visit-time/print")
 	public String getEntityPrintPage() {
 		return "visittimeprint";
 	}
 
-	@PostMapping("/work-time/form")
+	@PostMapping("/visit-time/form")
 	public @ResponseBody String loadEntityEditFormWithData(Integer id, Boolean adding) {
 		if (adding) {
 			return workTimeGetAddFormHtml(id);
@@ -50,12 +50,12 @@ public class VisitTimeController {
 		return workTimeGetEditFormHtml(entity);
 	}
 
-	@PostMapping("/work-time/filter")
+	@PostMapping("/visit-time/filter")
 	public @ResponseBody String loadVisitTimeFilterForm() {
 		return workTimeGetFilterFormHtml();
 	}
 
-	@PostMapping("/work-time/remove")
+	@PostMapping("/visit-time/remove")
 	public @ResponseBody String deleteSelectedEntity(Integer id) {
 		if (visitTimeRepository.existsById(id)) {
 			visitTimeRepository.deleteById(id);
@@ -65,7 +65,7 @@ public class VisitTimeController {
 		}
 	}
 
-	@PostMapping(path="/work-time/save")
+	@PostMapping(path="/visit-time/save")
 	public @ResponseBody
 	String addNewEntity (@ModelAttribute VisitTime visitTimeData)
 	{
@@ -74,7 +74,7 @@ public class VisitTimeController {
 		return "Saved";
 	}
 
-	@PostMapping(path="/work-time/all")
+	@PostMapping(path="/visit-time/all")
 	public @ResponseBody String getAllClientWorkTime(Integer employeeId) {
 		if (employeeId == null) {
 			return "";
@@ -100,7 +100,7 @@ public class VisitTimeController {
 		return requestResult;
 	}
 
-	@PostMapping(path="/work-time/sql")
+	@PostMapping(path="/visit-time/sql")
 	public @ResponseBody
 	String executeSql (String query)
 	{
@@ -126,7 +126,7 @@ public class VisitTimeController {
 		return requestResult;
 	}
 
-	@PostMapping(path="/work-time/all/print")
+	@PostMapping(path="/visit-time/all/print")
 	public @ResponseBody String getAllClientsWorkTime() {
 		ArrayList<VisitTime> allEntities = new ArrayList<>();
 		visitTimeRepository.findAll().forEach(allEntities::add);
@@ -142,7 +142,7 @@ public class VisitTimeController {
 	public String workTimeToHtmlBlock(VisitTime time) {
 //		Doctor task = taskRepository.findById(time.getIdDoctor()).orElse(null);
 
-		return "test"/*"<div id=\"work-time-" + time.getIdVisitTime() + "\" class=\"company-element entity\" onclick=\"openDataForm('"+ time.getIdVisitTime() +"')\">\n" +
+		return "test"/*"<div id=\"visit-time-" + time.getIdVisitTime() + "\" class=\"company-element entity\" onclick=\"openDataForm('"+ time.getIdVisitTime() +"')\">\n" +
 				"<div class=\"time-info-container\">\n" +
 				"<span>Doctor "+ task.getIdDoctor() +"</span>\n" +
 				"<span>"+ task.getShortTitle() +"</span>\n" +
@@ -169,7 +169,7 @@ public class VisitTimeController {
 	public String workTimeGetEditFormHtml(VisitTime time) {
 		return "<div id=\"timelog-container\" class=\"form-place-holder\">\n" +
 				"                    <div class=\"form-container\">\n" +
-				"                        <form id=\"timelog-form\" action=\"/work-time/save\" method=\"post\">\n" +
+				"                        <form id=\"timelog-form\" action=\"/visit-time/save\" method=\"post\">\n" +
 				"                            <p>Doctor " +
 				"<select name=\"idDoctor\" form=\"timelog-form\">" +
 				getDoctorList(time.getIdDoctor()) +
@@ -203,7 +203,7 @@ public class VisitTimeController {
 	public String workTimeGetAddFormHtml(Integer taskId) {
 		return "<div id=\"timelog-container\" class=\"form-place-holder\">\n" +
 				"                <div class=\"form-container\">\n" +
-				"                    <form id=\"timelog-form\" action=\"/work-time/save\" method=\"post\">\n" +
+				"                    <form id=\"timelog-form\" action=\"/visit-time/save\" method=\"post\">\n" +
 				"                            <p>Doctor " +
 				"<select name=\"idClient\" form=\"timelog-form\">" +
 				getClientList(null) +
@@ -233,7 +233,7 @@ public class VisitTimeController {
 	public String workTimeGetFilterFormHtml() {
 		return "<div id=\"form-add-container\" class=\"form-place-holder\">\n" +
 				"                <div class=\"form-container\">\n" +
-				"                    <form id=\"add-entity-form\" action=\"/work-time/all\" method=\"post\">\n" +
+				"                    <form id=\"add-entity-form\" action=\"/visit-time/all\" method=\"post\">\n" +
 				"<p>Doctor: " +
 				"<select name=\"employeeId\" form=\"add-entity-form\">" +
 				getClientList(null) +
