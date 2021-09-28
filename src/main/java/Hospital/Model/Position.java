@@ -17,6 +17,15 @@ public class Position {
     @JoinColumn(name = "id_department", nullable = false)
     private Department department;
 
+    public Position (String title, Department department) {
+        this.title = title;
+        this.department = department;
+    }
+
+    public Position () {
+
+    }
+
     public Department getDepartment() {
         return department;
     }

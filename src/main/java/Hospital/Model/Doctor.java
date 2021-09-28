@@ -18,6 +18,19 @@ public class Doctor {
 
     private String work_time;
 
+    public Doctor (String name, String surname, String email, String phone, String work_time,  Position position) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phone = phone;
+        this.work_time = work_time;
+        this.position = position;
+    }
+
+    public Doctor () {
+
+    }
+
     @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
     @JoinColumn(name = "id_position", nullable = false)
     private Position position;

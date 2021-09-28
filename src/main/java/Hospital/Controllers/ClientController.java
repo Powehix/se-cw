@@ -76,8 +76,8 @@ public class ClientController {
 			Client object = new Client();
 
 			object.setIdClient(result.getInt("id_client"));
-			object.setContactName(result.getString("contact_name"));
-			object.setContactSurname(result.getString("contact_surname"));
+//			object.setContactName(result.getString("contact_name")); // todo
+//			object.setContactSurname(result.getString("contact_surname")); // todo
 			object.setEmail(result.getString("email"));
 			object.setPhone(result.getString("phone"));
 
@@ -125,7 +125,7 @@ public class ClientController {
 				"<img src=\"/images/company.png\" alt=\"Client company image\">\n" +
 				"</div>\n" +
 				"<div class=\"company-info-container\">\n" +
-				"<span>" + client.getContactName() + " " + client.getContactSurname() +"</span>\n" +
+//				"<span>" + client.getContactName() + " " + client.getContactSurname() +"</span>\n" +  // todo
 				"<span>"+ client.getEmail() +"</span>\n" +
 				"</div>\n" +
 				"</div>";
@@ -134,7 +134,7 @@ public class ClientController {
 	public String clientToHtmlFullBlock(Client client) {
 		return "<div class=\"company-element entity\">\n" +
 				"<div class=\"company-info-container\">\n" +
-				"<p><span>Contact</span><span>" + client.getContactName() + " " + client.getContactSurname() +"</span></p>\n" +
+//				"<p><span>Contact</span><span>" + client.getContactName() + " " + client.getContactSurname() +"</span></p>\n" +  // todo
 				"<p><span>Email</span><span>"+ client.getEmail() +"</span></p>\n" +
 				"<p><span>Phone</span><span>" + client.getPhone() + "</span></p>\n" +
 				"</div>\n" +

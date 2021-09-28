@@ -10,9 +10,9 @@ public class Client {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_client;
 
-    private String contact_name;
+    private String name;
 
-    private String contact_surname;
+    private String surname;
 
     private String phone;
 
@@ -20,6 +20,18 @@ public class Client {
 
     @Column(unique=true)
     private String personal_code;
+
+    public Client (String name, String surname, String email, String phone, String personal_code) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phone = phone;
+        this.personal_code = personal_code;
+    }
+
+    public Client () {
+
+    }
 
     public Integer getIdClient() {
         return id_client;
@@ -29,12 +41,12 @@ public class Client {
         this.id_client = id_client;
     }
 
-    public String getContactName() {
-        return contact_name;
+    public String getName() {
+        return name;
     }
 
-    public void setContactName(String contact_name) {
-        this.contact_name = contact_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -45,12 +57,12 @@ public class Client {
         this.email = email;
     }
 
-    public String getContactSurname() {
-        return contact_surname;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setContactSurname(String contact_surname) {
-        this.contact_surname = contact_surname;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getPhone() {
@@ -63,9 +75,9 @@ public class Client {
 
     public String getOptionHtml(Boolean isSelected) {
         if (isSelected)
-            return "<option value=\"" + getIdClient() + "\" selected>" + getContactName() + " " + getContactSurname() + "</option>";
+            return "<option value=\"" + getIdClient() + "\" selected>" + getName() + " " + getSurname() + "</option>";
         else
-            return "<option value=\"" + getIdClient() + "\">" + getContactName() + " " + getContactSurname() + "</option>";
+            return "<option value=\"" + getIdClient() + "\">" + getName() + " " + getSurname() + "</option>";
     }
 
     public String getPersonalCode() {

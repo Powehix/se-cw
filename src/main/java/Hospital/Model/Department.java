@@ -13,6 +13,14 @@ public class Department {
     @Column(unique=true)
     private String title;
 
+    public Department (String title) {
+        this.title = title;
+    }
+
+    public Department () {
+
+    }
+
     public Integer getIdDepartment() {
         return id_department;
     }

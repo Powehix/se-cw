@@ -20,6 +20,17 @@ public class VisitTime {
     @JoinColumn(name = "id_client", nullable = false)
     private Client client;
 
+    public VisitTime (String time, String date, Doctor doctor, Client client) {
+        this.time = time;
+        this.date = date;
+        this.doctor = doctor;
+        this.client = client;
+    }
+
+    public VisitTime () {
+
+    }
+
     public Client getClient() {
         return client;
     }
