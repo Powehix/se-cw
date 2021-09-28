@@ -23,10 +23,6 @@
                     <img src="/images/user.png" class="left-menu-image">
                     <span class="left-menu-link"> CLIENTS </span>
                 </a>
-                <a class="left-menu-element" href="/doctor">
-                    <img src="/images/people.png" class="left-menu-image">
-                    <span class="left-menu-link"> DOCTORS </span>
-                </a>
                 <a class="left-menu-element" href="/visit-time">
                 <img src="/images/time.png" class="left-menu-image">
                 <span class="left-menu-link"> VISIT TIME </span>
@@ -41,14 +37,31 @@
                 <span id="page-title">Visit Time</span>
             </div>
             <div class="footer-actions" id="action-buttons">
-                <a onclick="openTimeFilter()">
-                    <img src="/images/people.png" class="left-menu-image">
-                    <span>SELECT DOCTOR</span>
-                </a>
-                <a onclick="downloadReadingList()">
-                    <img src="/images/share.png" class="left-menu-image">
-                    <span>MAKE LIST OF VISIT TIME FOR ALL</span>
-                </a>
+                <div class="searchContainer">
+                    <img src="/images/people.png" class="search-icon">
+                    <h5>Doctor</h5>
+                </div>
+                <div class="searchContainer">
+                    <label for="date_input">Date:</label>
+                    <input id="date_input" type="date"></span>
+                    <label for="doctor_name">Doctor:</label>
+                    <select id="doctor_name" name="doctor">
+                        <option value="volvo">Inga Mere</option>
+                        <option value="saab">Laura Grande</option>
+                        <option value="fiat">Ivan Ivanov</option>
+                    </select>
+                </div>
+                <div class="searchContainer">
+                    <label for="department_name">Department:</label>
+                    <select id="department_name" name="doctor">
+                        <option value="*">Any</option>
+                    </select>
+                    <label for="Position_name">Position:</label>
+                    <select id="Position_name" name="doctor">
+                        <option value="Family">Family Doctor</option>
+                        <option value="Dermatologist">Dermatologist</option>
+                    </select>
+                </div>
             </div>
             <div id="body-content" class="body-content">
 

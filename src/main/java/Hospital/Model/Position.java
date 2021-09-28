@@ -1,9 +1,8 @@
 package Hospital.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import javax.persistence.*;
 
 @Entity
 public class Position {
@@ -11,9 +10,20 @@ public class Position {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_position;
 
-    private Integer id_department;
-
+    @Column(unique=true)
     private String title;
+
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "id_department", nullable = false)
+    private Department department;
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setIdDepartment(Department department) {
+        this.department = department;
+    }
 
     public Integer getIdPosition() {
         return id_position;
@@ -38,11 +48,4 @@ public class Position {
             return "<option value=\"" + getIdPosition() + "\">" + getTitle() + "</option>";
     }
 
-    public Integer getIdDepartment() {
-        return id_department;
-    }
-
-    public void setIdDepartment(Integer idDepartment) {
-        this.id_department = idDepartment;
-    }
 }

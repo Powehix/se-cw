@@ -151,6 +151,12 @@ a span {
     filter: invert(1);
 }
 
+.footer-actions .search-icon {
+    width: 40px;
+    margin: 35px 2px -20px;
+    filter: invert(1);
+}
+
 .footer-actions span {
     margin: 0 10px 0 2px;
     font-size: 14px;

@@ -1,9 +1,6 @@
 package Hospital.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class VisitTime {
@@ -11,13 +8,33 @@ public class VisitTime {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_visit_time;
 
-    private Integer id_doctor;
-
-    private Integer id_client;
-
     private String time;
 
     private String date;
+
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "id_doctor", nullable = false)
+    private Doctor doctor;
+
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "id_client", nullable = false)
+    private Client client;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
 
     public Integer getIdVisitTime() {
         return id_visit_time;
@@ -25,22 +42,6 @@ public class VisitTime {
 
     public void setIdVisitTime(Integer id_visit_time) {
         this.id_visit_time = id_visit_time;
-    }
-
-    public Integer getIdDoctor() {
-        return id_doctor;
-    }
-
-    public void setIdDoctor(Integer id_doctor) {
-        this.id_doctor = id_doctor;
-    }
-
-    public Integer getIdClient() {
-        return id_client;
-    }
-
-    public void setIdClient(Integer id_client) {
-        this.id_client = id_client;
     }
 
     public String getTime() {

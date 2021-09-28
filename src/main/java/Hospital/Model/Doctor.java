@@ -1,19 +1,12 @@
 package Hospital.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Doctor {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_doctor;
-
-    private Integer id_department;
-
-    private Integer id_position;
 
     private String name;
 
@@ -24,6 +17,18 @@ public class Doctor {
     private String phone;
 
     private String work_time;
+
+    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+    @JoinColumn(name = "id_position", nullable = false)
+    private Position position;
+
+    public Position getIdPosition() {
+        return position;
+    }
+
+    public void setIdPosition(Position position) {
+        this.position = position;
+    }
 
     public String getPhone() {
         return phone;
@@ -55,22 +60,6 @@ public class Doctor {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getIdPosition() {
-        return id_position;
-    }
-
-    public void setIdPosition(Integer id_position) {
-        this.id_position = id_position;
-    }
-
-    public Integer getIdDepartment() {
-        return id_department;
-    }
-
-    public void setIdDepartment(Integer id_department) {
-        this.id_department = id_department;
     }
 
     public Integer getIdDoctor() {

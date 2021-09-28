@@ -1,9 +1,8 @@
 package Hospital.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import javax.persistence.*;
 
 @Entity
 public class Client {
@@ -19,6 +18,7 @@ public class Client {
 
     private String email;
 
+    @Column(unique=true)
     private String personal_code;
 
     public Integer getIdClient() {

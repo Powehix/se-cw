@@ -30,3 +30,25 @@
     border: solid 1px black;
     margin: 10px auto;
 }
+
+.searchContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+.searchContainer label {
+    margin-top: 5px;
+}
+
+.searchContainer select {
+    font-size: 13px;
+    width: 150px;
+    height: 29px;
+}
+
+.searchContainer input {
+    font-size: 13px;
+    width: 145px;
+    height: 25px;
+}

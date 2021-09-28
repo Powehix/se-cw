@@ -90,7 +90,7 @@ public class VisitTimeController {
 			requestResult = "<span id=\"filter-name\">Visit time of: " + client.getName() + " " + client.getSurname() + "</span><div id=\"time-history\">";
 
 			for (VisitTime visitTime : allEntities) {
-				if (visitTime.getIdClient() == employeeId)
+//				if (visitTime.getClient() == employeeId) //todo
 					requestResult += workTimeToHtmlBlock(visitTime);
 			}
 
@@ -108,8 +108,8 @@ public class VisitTimeController {
 			VisitTime object = new VisitTime();
 
 			object.setIdVisitTime(result.getInt("id_work_time"));
-			object.setIdDoctor(result.getInt("id_task"));
-			object.setIdClient(result.getInt("id_employee"));
+//			object.setIdDoctor(result.getInt("id_task")); // todo
+//			object.setIdClient(result.getInt("id_employee")); // todo
 			object.setTime(result.getString("time"));
 			object.setDate(result.getString("date"));
 
@@ -154,20 +154,22 @@ public class VisitTimeController {
 
 	public String workTimeToHtmlFullBlock(VisitTime time) {
 //		Doctor task = taskRepository.findById(time.getIdDoctor()).orElse(null);
-		Doctor client = doctorRepository.findById(time.getIdClient()).orElse(null);
-
-		return "<div class=\"company-element entity\">\n" +
+//		Doctor client = doctorRepository.findById(time.getIdClient()).orElse(null);// todo
+		return "";
+		/*return "<div class=\"company-element entity\">\n" +
 				"<div class=\"company-info-container\">\n" +
 				"<p><span>Doctor</span><span>" + client.getName() + " " + client.getSurname() +"</span></p>\n" +
 				"<p><span>Doctor</span><span>["+ time.getIdDoctor() + "]</span></p>\n" +
 				"<p><span>Worked</span><span>"+ time.getTime() +"</span></p>\n" +
 				"<p><span>Date</span><span>" + time.getDate() + "</span></p>\n" +
 				"</div>\n" +
-				"</div>";
+				"</div>";*/
 	}
 
 	public String workTimeGetEditFormHtml(VisitTime time) {
-		return "<div id=\"timelog-container\" class=\"form-place-holder\">\n" +
+		// todo
+		return "";
+		/*return "<div id=\"timelog-container\" class=\"form-place-holder\">\n" +
 				"                    <div class=\"form-container\">\n" +
 				"                        <form id=\"timelog-form\" action=\"/visit-time/save\" method=\"post\">\n" +
 				"                            <p>Doctor " +
@@ -197,7 +199,7 @@ public class VisitTimeController {
 				"                            <span>CANCEL</span>\n" +
 				"                        </a>\n" +
 				"                    </div>\n" +
-				"                </div>";
+				"                </div>";*/
 	}
 
 	public String workTimeGetAddFormHtml(Integer taskId) {

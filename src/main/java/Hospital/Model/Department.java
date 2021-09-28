@@ -1,9 +1,8 @@
 package Hospital.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import javax.persistence.*;
 
 @Entity
 public class Department {
@@ -11,6 +10,7 @@ public class Department {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id_department;
 
+    @Column(unique=true)
     private String title;
 
     public Integer getIdDepartment() {
