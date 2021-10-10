@@ -23,9 +23,6 @@ public class InitialData {
     @Autowired
     private PositionRepository positionRepo;
 
-    @Autowired
-    private VisitTimeRepository visitTimeRepo;
-
     @EventListener
     public void appReady(ApplicationReadyEvent event) {
         // TODO: Add all classes sample data

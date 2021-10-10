@@ -223,26 +223,3 @@ function loadDepartmentBoard(id) {
         }
     });
 }
-
-//=====================================
-//=====================================
-
-$("#Position_name").change(function () {
-    $( "#Position_name option:selected" ).each(function() {
-        console.log("Handler for POSITION .change() called.");
-        // str += $( this ).text() + " ";
-    });
-});
-
-$("#department_name").change(function() {
-    console.log("Handler for DEPARTMENT .change() called.");
-});
-
-$( "#doctor_name").change(function() {
-    console.log("Handler for DOCTOR .change() called.");
-});
-
-
-$("#date_input").change(function() {
-    console.log("Handler for DATE .change() called.");
-});

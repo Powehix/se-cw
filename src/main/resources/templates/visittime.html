@@ -93,24 +93,98 @@
     // TODO: Run loading of <time frames with buttons> for registration on specific date (if it is selected)
 
     //TODO: work here
-    $("#Position_name").change(function () {
-        $( "#Position_name option:selected" ).each(function() {
-            console.log("Handler for POSITION .change() called.");
-            console.log($( this ).text());
+    $("#department_name").change(function() {
+        $( "#department_name option:selected" ).each(function() {
+            console.log("Handler for DEPARTMENT .change() called.");
+            console.log($( this ).text())
+
+            // removing other fields values
+            $("#Position_name option").remove();
+            $("#doctor_name option").remove();
         });
     });
 
-    $("#department_name").change(function() {
-        console.log("Handler for DEPARTMENT .change() called.");
+    $("#Position_name").change(function () {
+        $( "#Position_name option:selected" ).each(function() {
+            console.log("Handler for POSITION .change() called.");
+            console.log($( this ).text())
+
+            // removing other fields values
+            $("#doctor_name option").remove();
+        });
     });
 
     $( "#doctor_name").change(function() {
-        console.log("Handler for DOCTOR .change() called.");
-    });
+        $( "#doctor_name option:selected" ).each(function() {
+            console.log("Handler for DOCTOR .change() called.");
+            console.log($( this ).text())
 
+            // removing other fields values
+
+        });
+    });
 
     $("#date_input").change(function() {
         console.log("Handler for DATE .change() called.");
     });
+
+    function loadDepartments() {
+        $.ajax({
+            url: '/departments/all',
+            type: "post",
+            // data: "id=" + id,
+            success: function (data) {
+                if (data === 'Not Found!') {
+                    alert('This data does not exist!');
+                } else {
+                    $("#department_name").html(data);
+                }
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
+
+    function loadPositions(department) {
+        $.ajax({
+            url: '/positions/all',
+            type: "post",
+            data: "department=" + department,
+            success: function (data) {
+                if (data === 'Not Found!') {
+                    alert('This data does not exist!');
+                } else {
+                    $("#Position_name").html(data);
+                }
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
+
+    function loadDoctors(department, position) {
+        $.ajax({
+            url: '/doctors/all',
+            type: "post",
+            data: "department=" + department + "&position=" + position,
+            success: function (data) {
+                if (data === 'Not Found!') {
+                    alert('This data does not exist!');
+                } else {
+                    $("#doctor_name").html(data);
+                }
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
+
+    loadDepartments();
+    loadPositions('');
+    loadDoctors('', '');
+
 
 </script>
