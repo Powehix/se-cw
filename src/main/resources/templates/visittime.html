@@ -46,6 +46,7 @@
                     <input id="date_input" type="date"></span>
                     <label for="doctor_name">Doctor:</label>
                     <select id="doctor_name" name="doctor">
+                        <option value=""></option>
                         <option value="volvo">Inga Mere</option>
                         <option value="saab">Laura Grande</option>
                         <option value="fiat">Ivan Ivanov</option>
@@ -54,10 +55,11 @@
                 <div class="searchContainer">
                     <label for="department_name">Department:</label>
                     <select id="department_name" name="doctor">
-                        <option value="*">Any</option>
+                        <option value=""></option>
                     </select>
                     <label for="Position_name">Position:</label>
                     <select id="Position_name" name="doctor">
+                        <option value=""></option>
                         <option value="Family">Family Doctor</option>
                         <option value="Dermatologist">Dermatologist</option>
                     </select>
@@ -81,3 +83,34 @@
     </div>
 </body>
 </html>
+
+<script>
+    // TODO: search fields hierarchy: DEPARTMENT -> POSITION -> DOCTOR
+    // TODO: when changing DEPARTMENT, it cleans POSITION and DOCTOR select tag
+    // TODO: after that POSITION should load values that fit selected DEPARTMENT
+    // TODO: after that DOCTOR should load values that fit loaded (not selected) POSITIONS
+    // TODO: To do the same logic for POSITION tag selection
+    // TODO: Run loading of <time frames with buttons> for registration on specific date (if it is selected)
+
+    //TODO: work here
+    $("#Position_name").change(function () {
+        $( "#Position_name option:selected" ).each(function() {
+            console.log("Handler for POSITION .change() called.");
+            console.log($( this ).text());
+        });
+    });
+
+    $("#department_name").change(function() {
+        console.log("Handler for DEPARTMENT .change() called.");
+    });
+
+    $( "#doctor_name").change(function() {
+        console.log("Handler for DOCTOR .change() called.");
+    });
+
+
+    $("#date_input").change(function() {
+        console.log("Handler for DATE .change() called.");
+    });
+
+</script>

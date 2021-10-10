@@ -16,14 +16,17 @@ public class Doctor {
 
     private String phone;
 
-    private String work_time;
+    private String work_time_start;
 
-    public Doctor (String name, String surname, String email, String phone, String work_time,  Position position) {
+    private String work_time_end;
+
+    public Doctor (String name, String surname, String email, String phone, String work_time_start, String work_time_end,  Position position) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
-        this.work_time = work_time;
+        this.work_time_start = work_time_start;
+        this.work_time_end = work_time_end;
         this.position = position;
     }
 
@@ -31,7 +34,7 @@ public class Doctor {
 
     }
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     @JoinColumn(name = "id_position", nullable = false)
     private Position position;
 
@@ -90,11 +93,19 @@ public class Doctor {
             return "<option value=\"" + getIdDoctor() + "\">" + getName() + " " + getSurname() + "</option>";
     }
 
-    public String getWorkTime() {
-        return work_time;
+    public String getWorkTimeStart() {
+        return work_time_start;
     }
 
-    public void setWorkTime(String work_time) {
-        this.work_time = work_time;
+    public void setWorkTimeStart(String work_time_start) {
+        this.work_time_start = work_time_start;
+    }
+
+    public String getWorkTimeEnd() {
+        return work_time_start;
+    }
+
+    public void setWorkTimeEnd(String work_time_end) {
+        this.work_time_start = work_time_end;
     }
 }

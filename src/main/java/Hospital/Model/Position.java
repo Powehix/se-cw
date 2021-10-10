@@ -13,7 +13,7 @@ public class Position {
     @Column(unique=true)
     private String title;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     @JoinColumn(name = "id_department", nullable = false)
     private Department department;
 

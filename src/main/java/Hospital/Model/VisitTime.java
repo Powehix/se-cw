@@ -12,11 +12,11 @@ public class VisitTime {
 
     private String date;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     @JoinColumn(name = "id_doctor", nullable = false)
     private Doctor doctor;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE, optional = false)
     @JoinColumn(name = "id_client", nullable = false)
     private Client client;
 
