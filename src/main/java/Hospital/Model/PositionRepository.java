@@ -13,6 +13,5 @@ import java.util.Map;
 // CRUD refers Create, Read, Update, Delete
 @Repository
 public interface PositionRepository extends CrudRepository<Position, Integer> {
-    /*@Query("FROM position WHERE id_department = ?1")
-    Map<Integer, Position> findByDepartmentId(int id);*/
+    ArrayList<Position> findByDepartment(Department department);
 }

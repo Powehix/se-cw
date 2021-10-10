@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Doctor {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id_doctor;
+    private Integer idDoctor;
 
     private String name;
 
@@ -35,7 +35,7 @@ public class Doctor {
     }
 
     @ManyToOne(cascade = CascadeType.MERGE, optional = false)
-    @JoinColumn(name = "id_position", nullable = false)
+    @JoinColumn(name = "idPosition", nullable = false)
     private Position position;
 
     public Position getIdPosition() {
@@ -79,11 +79,11 @@ public class Doctor {
     }
 
     public Integer getIdDoctor() {
-        return id_doctor;
+        return idDoctor;
     }
 
-    public void setIdDoctor(Integer id_doctor) {
-        this.id_doctor = id_doctor;
+    public void setIdDoctor(Integer idDoctor) {
+        this.idDoctor = idDoctor;
     }
 
     public String getOptionHtml(Boolean isSelected) {

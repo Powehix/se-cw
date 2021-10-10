@@ -96,21 +96,29 @@
     $("#department_name").change(function() {
         $( "#department_name option:selected" ).each(function() {
             console.log("Handler for DEPARTMENT .change() called.");
-            console.log($( this ).text())
+            console.log($( this ).text());
+            console.log($( this ).val());
 
             // removing other fields values
             $("#Position_name option").remove();
             $("#doctor_name option").remove();
+
+            // loading that fit filter
+            loadPositions($( this ).val());
+            loadDoctors($( this ).val(), '');
         });
     });
 
     $("#Position_name").change(function () {
         $( "#Position_name option:selected" ).each(function() {
             console.log("Handler for POSITION .change() called.");
-            console.log($( this ).text())
-
+            console.log($( this ).text());
+            console.log($( this ).val());
             // removing other fields values
             $("#doctor_name option").remove();
+
+            // loading that fit filter
+            loadDoctors('', $( this ).val());
         });
     });
 
@@ -121,6 +129,9 @@
 
             // removing other fields values
 
+            // loading that fit filter
+            //todo: check that date selected
+            //todo: load time frames with Register Client button and Clear Registration button
         });
     });
 
@@ -150,7 +161,7 @@
         $.ajax({
             url: '/positions/all',
             type: "post",
-            data: "department=" + department,
+            data: "departmentId=" + department,
             success: function (data) {
                 if (data === 'Not Found!') {
                     alert('This data does not exist!');
@@ -168,7 +179,7 @@
         $.ajax({
             url: '/doctors/all',
             type: "post",
-            data: "department=" + department + "&position=" + position,
+            data: "departmentId=" + department + "&positionId=" + position,
             success: function (data) {
                 if (data === 'Not Found!') {
                     alert('This data does not exist!');

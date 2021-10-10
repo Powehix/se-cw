@@ -45,12 +45,13 @@ public class VisitTimeController {
 	}
 
 	@PostMapping("/positions/all")
-	public @ResponseBody String loadAllPositions(Integer department) {
+	public @ResponseBody String loadAllPositions(Integer departmentId) {
 		ArrayList<Position> allEntities = new ArrayList<>();
-		if (department == null) {
+		if (departmentId == null) {
 			positionRepository.findAll().forEach(allEntities::add);
 		} else {
-//			allEntities = positionRepository.findByDepartmentId(department);
+			Department department = departmentRepository.findById(departmentId).orElse(null);
+			allEntities = positionRepository.findByDepartment(department);
 		}
 		String result = "<option value=\"\"></option>";
 		for (int i = 0; i < allEntities.size(); i++) {
@@ -61,20 +62,22 @@ public class VisitTimeController {
 	}
 
 	@PostMapping("/doctors/all")
-	public @ResponseBody String loadAllDoctors(Integer department, Integer position) {
+	public @ResponseBody String loadAllDoctors(Integer departmentId, Integer positionId) {
 		ArrayList<Position> allPositions;
 		ArrayList<Doctor> allEntities = new ArrayList<>();
-		if (department != null) {
-			if (position != null) {
-//				doctorRepository.findByPositionId(position).forEach(allEntities::add);
-			} else {
-//				allPositions = positionRepository.findByDepartmentId(department);
-//				for (int i = 0; i < allPositions.size(); i++) {
-//					doctorRepository.findByPositionId(allPositions.get(i).getIdPosition()).forEach(allEntities::add);
-//				}
+		if (departmentId != null) {
+			Department department = departmentRepository.findById(departmentId).orElse(null);
+			allPositions = positionRepository.findByDepartment(department);
+			for (int i = 0; i < allPositions.size(); i++) {
+				doctorRepository.findByPosition(allPositions.get(i)).forEach(allEntities::add);
 			}
 		} else {
-			doctorRepository.findAll().forEach(allEntities::add);
+			if (positionId != null) {
+				Position position = positionRepository.findById(positionId).orElse(null);
+				doctorRepository.findByPosition(position).forEach(allEntities::add);
+			} else {
+				doctorRepository.findAll().forEach(allEntities::add);
+			}
 		}
 
 		String result = "<option value=\"\"></option>";

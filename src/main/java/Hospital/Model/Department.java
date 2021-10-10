@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Department {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id_department;
+    private Integer idDepartment;
 
     @Column(unique=true)
     private String title;
@@ -22,11 +22,11 @@ public class Department {
     }
 
     public Integer getIdDepartment() {
-        return id_department;
+        return idDepartment;
     }
 
-    public void setIdDepartment(Integer id_department) {
-        this.id_department = id_department;
+    public void setIdDepartment(Integer idDepartment) {
+        this.idDepartment = idDepartment;
     }
 
     public String getTitle() {

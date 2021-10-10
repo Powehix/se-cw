@@ -8,13 +8,13 @@ import javax.persistence.*;
 public class Position {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id_position;
+    private Integer idPosition;
 
     @Column(unique=true)
     private String title;
 
     @ManyToOne(cascade = CascadeType.MERGE, optional = false)
-    @JoinColumn(name = "id_department", nullable = false)
+    @JoinColumn(name = "idDepartment", nullable = false)
     private Department department;
 
     public Position (String title, Department department) {
@@ -35,11 +35,11 @@ public class Position {
     }
 
     public Integer getIdPosition() {
-        return id_position;
+        return idPosition;
     }
 
-    public void setIdPosition(Integer id_position) {
-        this.id_position = id_position;
+    public void setIdPosition(Integer idPosition) {
+        this.idPosition = idPosition;
     }
 
     public String getTitle() {
