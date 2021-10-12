@@ -70,4 +70,29 @@ public class VisitTime {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public String getTimeFrame() {
+            return "<div class=\"time-frame\">\n" +
+                    "                    <div class=\"left-info-block\">\n" +
+                    "                        <div class=\"date-time-info\">\n" +
+                    "                            <span>" + this.time + "</span>\n" +
+                    "                            <span>" + this.date + "</span>\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"doctor-info\">\n" +
+                    "                            <span>" + this.doctor.getFullName() + "</span>\n" +
+                    "                            <span>Clinit | Family Doctor | kab. 107</span>\n" +
+                    "                        </div>\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"right-info-block\">\n" +
+                    "                        <div class=\"client-info\">\n" +
+                    "                            <span>Vitalijs Vitalikus</span>\n" +
+                    "                            <span>160301-14527</span>\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"control-buttons-block\">\n" +
+                    "                            <button class=\"visit-assign-button\">+ Assign</button>\n" +
+                    "                            <button class=\"visit-cancel-button\">- Cancel</button>\n" +
+                    "                        </div>\n" +
+                    "                    </div>\n" +
+                    "                </div>";
+    }
 }

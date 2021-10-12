@@ -88,6 +88,24 @@ public class VisitTimeController {
 		return result;
 	}
 
+	@PostMapping("/doctor/date-time/all")
+	public @ResponseBody String loadTimeFramesByDoctorAndDate(Integer doctorId, String date) {
+		ArrayList<VisitTime> allEntities = new ArrayList<>();
+
+		Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
+
+		allEntities = visitTimeRepository.findByDoctorAndDate(doctor, date);
+
+		String result = "";
+		for (int i = 0; i < allEntities.size(); i++) {
+			result += allEntities.get(i).getTimeFrame();
+		}
+
+		return result;
+	}
+
+
+
 	@GetMapping("/visit-time")
 	public String getEntityPage() {
 		return "visittime";

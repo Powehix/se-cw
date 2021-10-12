@@ -43,13 +43,10 @@
                 </div>
                 <div class="searchContainer">
                     <label for="date_input">Date:</label>
-                    <input id="date_input" type="date"></span>
+                    <input id="date_input" type="date"/>
                     <label for="doctor_name">Doctor:</label>
                     <select id="doctor_name" name="doctor">
                         <option value=""></option>
-                        <option value="volvo">Inga Mere</option>
-                        <option value="saab">Laura Grande</option>
-                        <option value="fiat">Ivan Ivanov</option>
                     </select>
                 </div>
                 <div class="searchContainer">
@@ -60,13 +57,35 @@
                     <label for="Position_name">Position:</label>
                     <select id="Position_name" name="doctor">
                         <option value=""></option>
-                        <option value="Family">Family Doctor</option>
-                        <option value="Dermatologist">Dermatologist</option>
                     </select>
                 </div>
             </div>
             <div id="body-content" class="body-content">
 
+            </div>
+            <div class="body-content">
+                <div class="time-frame">
+                    <div class="left-info-block">
+                        <div class="date-time-info">
+                            <span>07:30</span>
+                            <span>24/03/2021</span>
+                        </div>
+                        <div class="doctor-info">
+                            <span>Izite Babite</span>
+                            <span>Clinit | Family Doctor | kab. 107</span>
+                        </div>
+                    </div>
+                    <div class="right-info-block">
+                        <div class="client-info">
+                            <span>Vitalijs Vitalikus</span>
+                            <span>160301-14527</span>
+                        </div>
+                        <div class="control-buttons-block">
+                            <button class="visit-assign-button">+ Assign</button>
+                            <button class="visit-cancel-button">- Cancel</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="footer">
                 <div class="footer-block">
@@ -132,12 +151,56 @@
             // loading that fit filter
             //todo: check that date selected
             //todo: load time frames with Register Client button and Clear Registration button
+            checkAndLoadTimeFrames();
         });
     });
 
     $("#date_input").change(function() {
         console.log("Handler for DATE .change() called.");
+        checkAndLoadTimeFrames();
     });
+
+    function checkAndLoadTimeFrames() {
+        if ($('#date_input').val() === '') {
+            console.log('date not selected');
+            return;
+        }
+
+        var doctorId = $('#doctor_name option:selected').val();
+        if (doctorId === '') {
+            console.log('doctor not selected');
+            return;
+        }
+
+        var date = new Date($('#date_input').val());
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        var dateString = [day, month, year].join('/');
+
+        console.log(dateString);
+        console.log(doctorId);
+
+        loadTimeFrames(doctorId, dateString);
+    }
+
+    function loadTimeFrames(doctorId, dateString) {
+        $.ajax({
+            url: '/doctor/date-time/all',
+            type: "post",
+            data: "doctorId=" + doctorId + "&date=" + dateString,
+            success: function (data) {
+                if (data === 'Not Found!') {
+                    alert('This data does not exist!');
+                } else {
+                    $("#body-content").html(data);
+                }
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
 
     function loadDepartments() {
         $.ajax({

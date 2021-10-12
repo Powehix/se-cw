@@ -38,11 +38,11 @@ public class Doctor {
     @JoinColumn(name = "idPosition", nullable = false)
     private Position position;
 
-    public Position getIdPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setIdPosition(Position position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
@@ -107,5 +107,9 @@ public class Doctor {
 
     public void setWorkTimeEnd(String work_time_end) {
         this.work_time_start = work_time_end;
+    }
+
+    public String getFullName() {
+        return this.name + " " + this.surname;
     }
 }

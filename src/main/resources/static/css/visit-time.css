@@ -52,3 +52,86 @@
     width: 145px;
     height: 25px;
 }
+
+.time-frame {
+    width: 503px;
+    height: 85px;
+    display: flex;
+    margin: 2px;
+    background: #80808038;
+    border-radius: 8px;
+}
+
+.left-info-block {
+    width: 55%;
+    padding-left: 10px;
+}
+
+.date-time-info span:first-child {
+    font-size: 18px;
+    color: green;
+}
+
+.date-time-info span:last-child {
+    font-size: 13px;
+    color: dimgrey;
+}
+
+.doctor-info {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
+.doctor-info span:first-child {
+    color: #1b5f95;
+}
+
+.doctor-info span:last-child {
+    color: #08748c;
+    font-size: 15px;
+}
+
+.right-info-block {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.client-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.client-info span:first-child {
+    font-size: 18px;
+    color: #db5100;
+}
+
+.client-info span:last-child {
+    font-size: 14px;
+    color: #fd6742;
+}
+
+.control-buttons-block {
+    display: flex;
+    margin-top: 6px;
+}
+
+.control-buttons-block button {
+    width: 102px;
+    height: 27px;
+    font-size: 16px;
+    color: white;
+    border: 2px solid rgba(128, 128, 128, 0.49);
+    border-radius: 2px;
+}
+
+.visit-assign-button {
+    background: #0e9310;
+}
+
+.visit-cancel-button {
+    background: #6c6c6c;
+    margin-left: 6px;
+}

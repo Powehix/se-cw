@@ -1,7 +1,5 @@
 package Hospital.Model;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
 
 @Entity
