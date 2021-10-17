@@ -82,7 +82,7 @@ public class VisitTime {
                     "                        </div>\n" +
                     "                        <div class=\"doctor-info\">\n" +
                     "                            <span>" + doctor.getFullName() + "</span>\n" +
-                    "                            <span>" + doctor.getPosition().getDepartment().getTitle() + " | " + doctor.getPosition().getTitle() + " | " + doctor.getRoom() + ".kab </span>\n" +
+                    "                            <span>" + doctor.getPosition().getDepartment().getTitle() + " | " + doctor.getPosition().getTitle() + " | kab. " + doctor.getRoom() + "</span>\n" +
                     "                        </div>\n" +
                     "                    </div>\n" +
                     "                    <div class=\"right-info-block\">\n" +
@@ -107,7 +107,7 @@ public class VisitTime {
                 "                        </div>\n" +
                 "                        <div class=\"doctor-info\">\n" +
                 "                            <span>" + doctor.getFullName() + "</span>\n" +
-                "                            <span>" + doctor.getPosition().getDepartment().getTitle() + " | " + doctor.getPosition().getTitle() + " | " + doctor.getRoom() + ".kab </span>\n" +
+                "                            <span>" + doctor.getPosition().getDepartment().getTitle() + " | " + doctor.getPosition().getTitle() + " | kab. " + doctor.getRoom() + "</span>\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class=\"right-info-block\">\n" +
