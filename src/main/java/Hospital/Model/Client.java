@@ -91,4 +91,9 @@ public class Client {
     public void setPersonalCode(String personalCode) {
         this.personal_code = personalCode;
     }
+
+    public String optionToHtmlBlock() {
+            return "<option value=\"" + this.getIdClient() + "\">" + this.getFullName() + " | " + this.getPersonalCode() + "</option>";
+    }
+
 }

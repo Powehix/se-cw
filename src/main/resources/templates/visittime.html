@@ -255,6 +255,60 @@
         });
     }
 
+    function openAssignVisitPopUp(doctorId, date, time) {
+        $.ajax({
+            url: '/visit-time/assign-form',
+            type: "post",
+            data: "doctorId=" + doctorId + "&date=" + date + "&time=" + time,
+            success: function (data) {
+                if (data === 'Not Found!') {
+                    alert('This data does not exist!');
+                } else {
+                    $("#data-form-place").html(data);
+                }
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
+
+    function assignVisit(doctorId, clientId, date, time) {
+        $.ajax({
+            url: '/visit-time/assign',
+            type: "post",
+            data: "doctorId=" + doctorId + "&clientId=" + clientId + "&date=" + date + "&time=" + time,
+            success: function (data) {
+                if (data === 'Not Found!') {
+                    alert('This data does not exist!');
+                } else {
+                    loadTimeFrames(doctorId, date);
+                }
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
+
+    function cancelVisit(doctorId, date, time) {
+        $.ajax({
+            url: '/visit-time/cancel',
+            type: "post",
+            data: "doctorId=" + doctorId + "&date=" + date + "&time=" + time,
+            success: function (data) {
+                if (data === 'Not Found!') {
+                    alert('This data does not exist!');
+                } else {
+                    loadTimeFrames(doctorId, date);
+                }
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
+
     loadDepartments();
     loadPositions('');
     loadDoctors('', '');

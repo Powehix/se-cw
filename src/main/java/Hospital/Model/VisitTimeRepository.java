@@ -9,4 +9,6 @@ import java.util.ArrayList;
 
 public interface VisitTimeRepository extends CrudRepository<VisitTime, Integer> {
     ArrayList<VisitTime> findByDoctorAndDate(Doctor doctor, String date);
+
+    VisitTime findByDoctorAndDateAndTime(Doctor doctor, String date, String time);
 }

@@ -29,10 +29,10 @@ public class ClientController {
 		return "client";
 	}
 
-	@GetMapping("/client/print")
-	public String getEntityPrintPage() {
-		return "clientprint";
-	}
+//	@GetMapping("/client/print")
+//	public String getEntityPrintPage() {
+//		return "clientprint";
+//	}
 
 	@PostMapping("/client/form")
 	public @ResponseBody String loadEntityEditFormWithData(Integer id, Boolean adding) {
@@ -68,34 +68,34 @@ public class ClientController {
 		return "Saved";
 	}
 
-	@PostMapping(path="/client/sql")
-	public @ResponseBody
-	String executeSql (String query)
-	{
-		RowMapper <Client> rm = (ResultSet result, int rowNum) -> {
-			Client object = new Client();
-
-			object.setIdClient(result.getInt("id_client"));
+//	@PostMapping(path="/client/sql")
+//	public @ResponseBody
+//	String executeSql (String query)
+//	{
+//		RowMapper <Client> rm = (ResultSet result, int rowNum) -> {
+//			Client object = new Client();
+//
+//			object.setIdClient(result.getInt("id_client"));
 //			object.setContactName(result.getString("contact_name")); // todo
 //			object.setContactSurname(result.getString("contact_surname")); // todo
-			object.setEmail(result.getString("email"));
-			object.setPhone(result.getString("phone"));
-
-			return object;
-		};
-
-		List<Client> clients = jdbcTemplate.query(query, new Object[]{}, rm);
-
-		String requestResult = "";
-		for (Client oneClient : clients) {
-			requestResult += clientToHtmlFullBlock(oneClient);
-		}
-
-		return requestResult;
-	}
+//			object.setEmail(result.getString("email"));
+//			object.setPhone(result.getString("phone"));
+//
+//			return object;
+//		};
+//
+//		List<Client> clients = jdbcTemplate.query(query, new Object[]{}, rm);
+//
+//		String requestResult = "";
+//		for (Client oneClient : clients) {
+//			requestResult += clientToHtmlFullBlock(oneClient);
+//		}
+//
+//		return requestResult;
+//	}
 
 	@PostMapping(path="/client/all")
-	public @ResponseBody String getAllUsers() {
+	public @ResponseBody String getAllClients() {
 		ArrayList<Client> allClients = new ArrayList<>();
 		clientRepository.findAll().forEach(allClients::add);
 		String requestResult = "";
@@ -106,17 +106,17 @@ public class ClientController {
 		return requestResult;
 	}
 
-	@PostMapping(path="/client/all/print")
-	public @ResponseBody String getAllUsersToPrint() {
-		ArrayList<Client> allClients = new ArrayList<>();
-		clientRepository.findAll().forEach(allClients::add);
-		String requestResult = "";
-		for (Client oneClient : allClients) {
-			requestResult += clientToHtmlFullBlock(oneClient);
-		}
-
-		return requestResult;
-	}
+//	@PostMapping(path="/client/all/print")
+//	public @ResponseBody String getAllUsersToPrint() {
+//		ArrayList<Client> allClients = new ArrayList<>();
+//		clientRepository.findAll().forEach(allClients::add);
+//		String requestResult = "";
+//		for (Client oneClient : allClients) {
+//			requestResult += clientToHtmlFullBlock(oneClient);
+//		}
+//
+//		return requestResult;
+//	}
 
 
 	public String clientToHtmlBlock(Client client) {
@@ -125,31 +125,31 @@ public class ClientController {
 				"<img src=\"/images/company.png\" alt=\"Client company image\">\n" +
 				"</div>\n" +
 				"<div class=\"company-info-container\">\n" +
-//				"<span>" + client.getContactName() + " " + client.getContactSurname() +"</span>\n" +  // todo
+				"<span>" + client.getFullName() +"</span>\n" +
 				"<span>"+ client.getEmail() +"</span>\n" +
 				"</div>\n" +
 				"</div>";
 	}
-
-	public String clientToHtmlFullBlock(Client client) {
-		return "<div class=\"company-element entity\">\n" +
-				"<div class=\"company-info-container\">\n" +
+//
+//	public String clientToHtmlFullBlock(Client client) {
+//		return "<div class=\"company-element entity\">\n" +
+//				"<div class=\"company-info-container\">\n" +
 //				"<p><span>Contact</span><span>" + client.getContactName() + " " + client.getContactSurname() +"</span></p>\n" +  // todo
-				"<p><span>Email</span><span>"+ client.getEmail() +"</span></p>\n" +
-				"<p><span>Phone</span><span>" + client.getPhone() + "</span></p>\n" +
-				"</div>\n" +
-				"</div>";
-	}
+//				"<p><span>Email</span><span>"+ client.getEmail() +"</span></p>\n" +
+//				"<p><span>Phone</span><span>" + client.getPhone() + "</span></p>\n" +
+//				"</div>\n" +
+//				"</div>";
+//	}
 
 	public String clientGetEditFormHtml(Client client) {
 		return "<div id=\"form-edit-container\" class=\"form-place-holder\">\n" +
 				"                    <div class=\"form-container\">\n" +
 				"                        <form id=\"edit-entity-form\" action=\"/client/save\" method=\"post\">\n" +
-				"               	         <p>Name: <input required type=\"text\" name=\"contactName\" class=\"data\"/></p>\n" +
-				"           	             <p>Surname: <input required type=\"text\" name=\"contactSurname\" class=\"data\"/></p>\n" +
-				"       	                 <p>Personal Code: <input required type=\"text\"name=\"persCode\" class=\"data\"/></p>\n" +
-				"   	                     <p>Phone: <input type=\"text\" name=\"phone\" class=\"data\"/></p>\n" +
-				"	                         <p>Email: <input type=\"text\" name=\"email\" class=\"data\"/></p>\n" +
+				"               	         <p>Name: <input required type=\"text\" name=\"name\" class=\"data\" value='"+ client.getName() +"' /></p>\n" +
+				"           	             <p>Surname: <input required type=\"text\" name=\"surname\" class=\"data\" value='"+ client.getSurname() +"' /></p>\n" +
+				"       	                 <p>Personal Code: <input required type=\"text\" name=\"personalCode\" class=\"data\" value='"+ client.getPersonalCode() +"' /></p>\n" +
+				"   	                     <p>Phone: <input required type=\"text\" name=\"phone\" class=\"data\" value='" + client.getPhone() + "' /></p>\n" +
+				"	                         <p>Email: <input type=\"text\" name=\"email\" class=\"data\" value='" + client.getEmail() + "' /></p>\n" +
 				"                            <input type=\"hidden\" name=\"idClient\" class=\"data\" value='"+ client.getIdClient() +"'/>"+
 				"                        </form>\n" +
 				"                        <div class=\"form-navigation\">\n" +
@@ -174,10 +174,10 @@ public class ClientController {
 		return "<div id=\"form-add-container\" class=\"form-place-holder\">\n" +
 				"                <div class=\"form-container\">\n" +
 				"                    <form id=\"add-entity-form\" action=\"/client/save\" method=\"post\">\n" +
-				"                        <p>Name: <input required type=\"text\" name=\"contactName\" class=\"data\"/></p>\n" +
-				"                        <p>Surname: <input required type=\"text\" name=\"contactSurname\" class=\"data\"/></p>\n" +
-				"                        <p>Personal Code: <input required type=\"text\"name=\"persCode\" class=\"data\"/></p>\n" +
-				"                        <p>Phone: <input type=\"text\" name=\"phone\" class=\"data\"/></p>\n" +
+				"                        <p>Name: <input required type=\"text\" name=\"name\" class=\"data\"/></p>\n" +
+				"                        <p>Surname: <input required type=\"text\" name=\"surname\" class=\"data\"/></p>\n" +
+				"                        <p>Personal Code: <input required type=\"text\"name=\"personalCode\" class=\"data\"/></p>\n" +
+				"                        <p>Phone: <input required type=\"text\" name=\"phone\" class=\"data\"/></p>\n" +
 				"                        <p>Email: <input type=\"text\" name=\"email\" class=\"data\"/></p>\n" +
 				"                    </form>\n" +
 				"                    <div class=\"form-navigation\">\n" +

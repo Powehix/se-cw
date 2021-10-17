@@ -105,11 +105,11 @@ public class Doctor {
     }
 
     public String getWorkTimeEnd() {
-        return work_time_start;
+        return work_time_end;
     }
 
     public void setWorkTimeEnd(String work_time_end) {
-        this.work_time_start = work_time_end;
+        this.work_time_end = work_time_end;
     }
 
     public String getFullName() {

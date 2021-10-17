@@ -91,10 +91,35 @@ public class VisitTime {
                     "                            <span>" + client.getPersonalCode() + "</span>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"control-buttons-block\">\n" +
-                    "                            <button class=\"visit-assign-button\">+ Assign</button>\n" +
-                    "                            <button class=\"visit-cancel-button\">- Cancel</button>\n" +
+                    "                            <button class=\"visit-assign-button\" disabled>+ Assign</button>\n" +
+                    "                            <button class=\"visit-cancel-button\" onclick=\"cancelVisit(" + doctor.getIdDoctor() + ",'" + this.getDate() + "','" + this.getTime() + "')\" >- Cancel</button>\n" +
                     "                        </div>\n" +
                     "                    </div>\n" +
                     "                </div>";
+    }
+
+    public static String getEmptyTimeFrame(Doctor doctor, String date, String time) {
+        return "<div class=\"time-frame\">\n" +
+                "                    <div class=\"left-info-block\">\n" +
+                "                        <div class=\"date-time-info\">\n" +
+                "                            <span>" + time + ":00 </span>\n" +
+                "                            <span>" + date + "</span>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"doctor-info\">\n" +
+                "                            <span>" + doctor.getFullName() + "</span>\n" +
+                "                            <span>" + doctor.getPosition().getDepartment().getTitle() + " | " + doctor.getPosition().getTitle() + " | " + doctor.getRoom() + ".kab </span>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"right-info-block\">\n" +
+                "                        <div class=\"client-info\">\n" +
+                "                            <span>" + /*client.getFullName() + */"</span>\n" +
+                "                            <span>" + /*client.getPersonalCode() +*/ "</span>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"control-buttons-block\">\n" +
+                "                            <button class=\"visit-assign-button\" onclick=\"openAssignVisitPopUp(" + doctor.getIdDoctor() + ",'" + date + "','" + time + "')\">+ Assign</button>\n" +
+                "                            <button class=\"visit-cancel-button\" disabled>- Cancel</button>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                </div>";
     }
 }

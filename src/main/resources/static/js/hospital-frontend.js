@@ -137,12 +137,13 @@ function submitDataForm(formId) {
         data: form_data,
         success: function (data) {
             if (data === 'Saved') {
-                if (post_url === '/department/save' && formId === 'edit-entity-form')
-                    document.getElementById('page-title').textContent = inputs[0].value;
-
                 hideForm(formId);
             } else {
-                alert('Not saved! Message: ' . data);
+                if (data === 'Assigned') {
+                    hideForm(formId);
+                    checkAndLoadTimeFrames();
+                } else
+                    alert('Not saved! Message: ' . data);
             }
             loadAllObjectsToPage();
         },
@@ -166,8 +167,8 @@ function hideForm(containerId) {
         $("#form-add-container").remove();
     } else if (containerId === 'edit-entity-form') {
         $("#form-edit-container").remove();
-    } else if (containerId === 'timelog-form') {
-        $("#timelog-container").remove();
+    } else if (containerId === 'assign-entity-form') {
+        $("#form-assign-container").remove();
     }
 }
 

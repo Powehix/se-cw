@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class VisitTimeController {
@@ -27,6 +26,9 @@ public class VisitTimeController {
 
 	@Autowired
 	private DoctorRepository doctorRepository;
+
+	@Autowired
+	private ClientRepository clientRepository;
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -88,6 +90,70 @@ public class VisitTimeController {
 		return result;
 	}
 
+	@PostMapping("/visit-time/cancel")
+	public @ResponseBody String cancelVisitByDoctorAndDate(Integer doctorId, String date, String time) {
+		Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
+
+		VisitTime visit = visitTimeRepository.findByDoctorAndDateAndTime(doctor, date, time);
+
+		visitTimeRepository.deleteById(visit.getIdVisitTime());
+
+		return "Deleted";
+	}
+
+	@PostMapping("/visit-time/assign")
+	public @ResponseBody String assignVisit(Integer doctorId, Integer clientId, String date, String time) {
+		Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
+		Client client = clientRepository.findById(clientId).orElse(null);
+
+		VisitTime visit = new VisitTime(time, date, doctor, client);
+		visitTimeRepository.save(visit);
+
+		return "Assigned";
+	}
+
+
+
+	@PostMapping("/visit-time/assign-form")
+	public @ResponseBody String assignVisitFormPopUp(Integer doctorId, String date, String time) {
+		Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
+		VisitTime visit = visitTimeRepository.findByDoctorAndDateAndTime(doctor, date, time);
+
+		return "<div id=\"form-assign-container\" class=\"form-place-holder\">\n" +
+				"                    <div class=\"form-container\">\n" +
+				"                        <form id=\"assign-entity-form\" action=\"/visit-time/assign\" method=\"post\">\n" +
+				"							<input type=\"hidden\" name=\"doctorId\" class=\"data\" value='"+ doctorId +"'/>" +
+				"							<input type=\"hidden\" name=\"date\" class=\"data\" value='"+ date +"'/>" +
+				"							<input type=\"hidden\" name=\"time\" class=\"data\" value='"+ time +"'/>" +
+				"							<select name=\"clientId\" form=\"assign-entity-form\">" +
+												getAllClients() +
+				"							</select></p>\n" +
+				"                        </form>\n" +
+				"                        <div class=\"form-navigation\">\n" +
+				"                            <a onclick=\"submitDataForm('assign-entity-form')\" class=\"button-a\">\n" +
+				"                                <img src=\"/images/save.png\" class=\"form-menu-image\">\n" +
+				"                                <span>ASSIGN</span>\n" +
+				"                            </a>\n" +
+				"                        </div>\n" +
+				"                        <a onclick=\"hideForm('assign-entity-form');\" class=\"button-a form-cancel\">\n" +
+				"                            <img src=\"/images/cancel.png\" class=\"form-menu-image\">\n" +
+				"                            <span>CANCEL</span>\n" +
+				"                        </a>\n" +
+				"                    </div>\n" +
+				"                </div>";
+	}
+
+	private String getAllClients() {
+		ArrayList<Client> allClients = new ArrayList<>();
+		clientRepository.findAll().forEach(allClients::add);
+		String requestResult = "";
+		for (Client client : allClients) {
+			requestResult += client.optionToHtmlBlock();
+		}
+
+		return requestResult;
+	}
+
 	@PostMapping("/doctor/date-time/all")
 	public @ResponseBody String loadTimeFramesByDoctorAndDate(Integer doctorId, String date) {
 		ArrayList<VisitTime> allEntities = new ArrayList<>();
@@ -96,9 +162,28 @@ public class VisitTimeController {
 
 		allEntities = visitTimeRepository.findByDoctorAndDate(doctor, date);
 
-		String result = "";
+		SortedMap<String, VisitTime> timeMapForVisits = new TreeMap<>();
+
+		int startTime = Integer.parseInt(doctor != null ? doctor.getWorkTimeStart() : null);
+		int endTime = Integer.parseInt(doctor != null ? doctor.getWorkTimeEnd() : null);
+		for (; startTime < endTime; startTime++) {
+			timeMapForVisits.put(startTime / 10 + "" + startTime % 10, null);
+		}
+
 		for (int i = 0; i < allEntities.size(); i++) {
-			result += allEntities.get(i).getTimeFrame();
+			VisitTime visit = allEntities.get(i);
+			timeMapForVisits.put(visit.getTime(), visit);
+		}
+
+		String result = "";
+
+		for (Map.Entry<String, VisitTime> possibleVisit : timeMapForVisits.entrySet()) {
+			//System.out.println("Key : " + possibleVisit.getKey() + " Value : " + possibleVisit.getValue());
+			if (possibleVisit.getValue() == null) {
+				result += VisitTime.getEmptyTimeFrame(doctor, date, possibleVisit.getKey());
+			} else {
+				result += possibleVisit.getValue().getTimeFrame();
+			}
 		}
 
 		return result;
@@ -135,29 +220,4 @@ public class VisitTimeController {
 		return "Saved";
 	}
 
-	@PostMapping(path="/visit-time/all")
-	public @ResponseBody String getAllClientWorkTime(Integer employeeId) {
-		if (employeeId == null) {
-			return "";
-		}
-
-		ArrayList<VisitTime> allEntities = new ArrayList<>();
-		visitTimeRepository.findAll().forEach(allEntities::add);
-
-		Doctor client = doctorRepository.findById(employeeId).orElse(null);
-
-		String requestResult = "";
-		if (client != null) {
-			requestResult = "<span id=\"filter-name\">Visit time of: " + client.getName() + " " + client.getSurname() + "</span><div id=\"time-history\">";
-
-			for (VisitTime visitTime : allEntities) {
-//				if (visitTime.getClient() == employeeId) //todo
-//					requestResult += workTimeToHtmlBlock(visitTime);
-			}
-
-			requestResult += "</div>";
-		}
-
-		return requestResult;
-	}
 }
