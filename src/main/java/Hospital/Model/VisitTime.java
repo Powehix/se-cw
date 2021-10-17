@@ -91,8 +91,8 @@ public class VisitTime {
                     "                            <span>" + client.getPersonalCode() + "</span>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"control-buttons-block\">\n" +
-                    "                            <button class=\"visit-assign-button\" disabled>+ Assign</button>\n" +
-                    "                            <button class=\"visit-cancel-button\" onclick=\"cancelVisit(" + doctor.getIdDoctor() + ",'" + this.getDate() + "','" + this.getTime() + "')\" >- Cancel</button>\n" +
+                    "                            <div></div>\n" +
+                    "                            <button class=\"visit-cancel-button\" onclick=\"cancelVisit(" + doctor.getIdDoctor() + ",'" + this.getDate() + "','" + this.getTime() + "')\" >- Unassign</button>\n" +
                     "                        </div>\n" +
                     "                    </div>\n" +
                     "                </div>";
@@ -111,13 +111,9 @@ public class VisitTime {
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class=\"right-info-block\">\n" +
-                "                        <div class=\"client-info\">\n" +
-                "                            <span>" + /*client.getFullName() + */"</span>\n" +
-                "                            <span>" + /*client.getPersonalCode() +*/ "</span>\n" +
-                "                        </div>\n" +
                 "                        <div class=\"control-buttons-block\">\n" +
                 "                            <button class=\"visit-assign-button\" onclick=\"openAssignVisitPopUp(" + doctor.getIdDoctor() + ",'" + date + "','" + time + "')\">+ Assign</button>\n" +
-                "                            <button class=\"visit-cancel-button\" disabled>- Cancel</button>\n" +
+                "                            <div></div>\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                </div>";

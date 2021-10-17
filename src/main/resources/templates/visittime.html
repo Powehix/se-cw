@@ -63,30 +63,6 @@
             <div id="body-content" class="body-content">
 
             </div>
-            <!--<div class="body-content">
-                <div class="time-frame">
-                    <div class="left-info-block">
-                        <div class="date-time-info">
-                            <span>07:30</span>
-                            <span>24/03/2021</span>
-                        </div>
-                        <div class="doctor-info">
-                            <span>Izite Babite</span>
-                            <span>Clinit | Family Doctor | kab. 107</span>
-                        </div>
-                    </div>
-                    <div class="right-info-block">
-                        <div class="client-info">
-                            <span>Vitalijs Vitalikus</span>
-                            <span>160301-14527</span>
-                        </div>
-                        <div class="control-buttons-block">
-                            <button class="visit-assign-button">+ Assign</button>
-                            <button class="visit-cancel-button">- Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
             <div class="footer">
                 <div class="footer-block">
                     <a class="logo-block" href="/client">
@@ -104,19 +80,9 @@
 </html>
 
 <script>
-    // TODO: search fields hierarchy: DEPARTMENT -> POSITION -> DOCTOR
-    // TODO: when changing DEPARTMENT, it cleans POSITION and DOCTOR select tag
-    // TODO: after that POSITION should load values that fit selected DEPARTMENT
-    // TODO: after that DOCTOR should load values that fit loaded (not selected) POSITIONS
-    // TODO: To do the same logic for POSITION tag selection
-    // TODO: Run loading of <time frames with buttons> for registration on specific date (if it is selected)
-
-    //TODO: work here
     $("#department_name").change(function() {
         $( "#department_name option:selected" ).each(function() {
-            console.log("Handler for DEPARTMENT .change() called.");
-            console.log($( this ).text());
-            console.log($( this ).val());
+            $("#body-content").html("");
 
             // removing other fields values
             $("#Position_name option").remove();
@@ -130,9 +96,7 @@
 
     $("#Position_name").change(function () {
         $( "#Position_name option:selected" ).each(function() {
-            console.log("Handler for POSITION .change() called.");
-            console.log($( this ).text());
-            console.log($( this ).val());
+            $("#body-content").html("");
             // removing other fields values
             $("#doctor_name option").remove();
 
@@ -143,31 +107,23 @@
 
     $( "#doctor_name").change(function() {
         $( "#doctor_name option:selected" ).each(function() {
-            console.log("Handler for DOCTOR .change() called.");
-            console.log($( this ).text())
-
-            // removing other fields values
-
-            // loading that fit filter
-            //todo: load time frames with Register Client button and Clear Registration button
+            $("#body-content").html("");
             checkAndLoadTimeFrames();
         });
     });
 
     $("#date_input").change(function() {
-        console.log("Handler for DATE .change() called.");
+        $("#body-content").html("");
         checkAndLoadTimeFrames();
     });
 
     function checkAndLoadTimeFrames() {
         if ($('#date_input').val() === '') {
-            console.log('date not selected');
             return;
         }
 
         var doctorId = $('#doctor_name option:selected').val();
         if (doctorId === '') {
-            console.log('doctor not selected');
             return;
         }
 
@@ -176,9 +132,6 @@
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
         var dateString = [day, month, year].join('/');
-
-        console.log(dateString);
-        console.log(doctorId);
 
         loadTimeFrames(doctorId, dateString);
     }
@@ -273,16 +226,36 @@
         });
     }
 
-    function assignVisit(doctorId, clientId, date, time) {
+    function openAddNewClient() {
         $.ajax({
-            url: '/visit-time/assign',
+            url: '/client/form',
             type: "post",
-            data: "doctorId=" + doctorId + "&clientId=" + clientId + "&date=" + date + "&time=" + time,
+            data: "clientId=0&adding=true",
             success: function (data) {
                 if (data === 'Not Found!') {
                     alert('This data does not exist!');
                 } else {
-                    loadTimeFrames(doctorId, date);
+                    var formPlaceHtml = document.getElementById('data-form-place').innerHTML;
+                    formPlaceHtml += data;
+                    $("#data-form-place").html(formPlaceHtml);
+                }
+            },
+            error: function (e) {
+                console.log("ERROR: ", e);
+            }
+        });
+    }
+
+    function updateClientSelectTag(clientId) {
+        $.ajax({
+            url: '/client/visit-time/options',
+            type: "post",
+            data: "clientId=" + clientId,
+            success: function (data) {
+                if (data === 'Not Found!') {
+                    alert('This data does not exist!');
+                } else {
+                    $("#clientSelectTag").html(data);
                 }
             },
             error: function (e) {
@@ -292,21 +265,23 @@
     }
 
     function cancelVisit(doctorId, date, time) {
-        $.ajax({
-            url: '/visit-time/cancel',
-            type: "post",
-            data: "doctorId=" + doctorId + "&date=" + date + "&time=" + time,
-            success: function (data) {
-                if (data === 'Not Found!') {
-                    alert('This data does not exist!');
-                } else {
-                    loadTimeFrames(doctorId, date);
+        if (confirm('Are you sure ?')) {
+            $.ajax({
+                url: '/visit-time/cancel',
+                type: "post",
+                data: "doctorId=" + doctorId + "&date=" + date + "&time=" + time,
+                success: function (data) {
+                    if (data === 'Not Found!') {
+                        alert('This data does not exist!');
+                    } else {
+                        loadTimeFrames(doctorId, date);
+                    }
+                },
+                error: function (e) {
+                    console.log("ERROR: ", e);
                 }
-            },
-            error: function (e) {
-                console.log("ERROR: ", e);
-            }
-        });
+            });
+        }
     }
 
     loadDepartments();

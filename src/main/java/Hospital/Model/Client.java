@@ -75,9 +75,9 @@ public class Client {
 
     public String getOptionHtml(Boolean isSelected) {
         if (isSelected)
-            return "<option value=\"" + getIdClient() + "\" selected>" + getName() + " " + getSurname() + "</option>";
+            return "<option value=\"" + getIdClient() + "\" selected>" + this.getFullName() + " | " + this.getPersonalCode() + "</option>";
         else
-            return "<option value=\"" + getIdClient() + "\">" + getName() + " " + getSurname() + "</option>";
+            return "<option value=\"" + getIdClient() + "\">" + this.getFullName() + " | " + this.getPersonalCode() + "</option>";
     }
 
     public String getFullName() {
@@ -90,10 +90,6 @@ public class Client {
 
     public void setPersonalCode(String personalCode) {
         this.personal_code = personalCode;
-    }
-
-    public String optionToHtmlBlock() {
-            return "<option value=\"" + this.getIdClient() + "\">" + this.getFullName() + " | " + this.getPersonalCode() + "</option>";
     }
 
 }

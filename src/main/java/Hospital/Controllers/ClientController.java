@@ -64,8 +64,8 @@ public class ClientController {
 	String addNewEntity (@ModelAttribute Client newData)
 	{
 		//----- Saving by converted to object received params -----
-		clientRepository.save(newData);
-		return "Saved";
+		Client savedClient = clientRepository.save(newData);
+		return savedClient.getIdClient().toString();
 	}
 
 //	@PostMapping(path="/client/sql")
@@ -126,20 +126,10 @@ public class ClientController {
 				"</div>\n" +
 				"<div class=\"company-info-container\">\n" +
 				"<span>" + client.getFullName() +"</span>\n" +
-				"<span>"+ client.getEmail() +"</span>\n" +
+				"<span>"+ client.getPersonalCode() +"</span>\n" +
 				"</div>\n" +
 				"</div>";
 	}
-//
-//	public String clientToHtmlFullBlock(Client client) {
-//		return "<div class=\"company-element entity\">\n" +
-//				"<div class=\"company-info-container\">\n" +
-//				"<p><span>Contact</span><span>" + client.getContactName() + " " + client.getContactSurname() +"</span></p>\n" +  // todo
-//				"<p><span>Email</span><span>"+ client.getEmail() +"</span></p>\n" +
-//				"<p><span>Phone</span><span>" + client.getPhone() + "</span></p>\n" +
-//				"</div>\n" +
-//				"</div>";
-//	}
 
 	public String clientGetEditFormHtml(Client client) {
 		return "<div id=\"form-edit-container\" class=\"form-place-holder\">\n" +

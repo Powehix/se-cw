@@ -32,7 +32,7 @@ body {
     display: flex;
     width: 190px;
     height: 60px;
-    margin: 26px 0 18px;
+    margin: 26px 0 7px;
     align-items: center;
     text-decoration: none;
     color: black;
@@ -172,7 +172,7 @@ a span {
     background: #29323D;
     text-decoration: none;
     color: white;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .button-a span {
@@ -192,8 +192,8 @@ a span {
 }
 
 .logo-block img {
-    width: 40px;
-    margin: 0 0 0 27px;
+    width: 50px;
+    margin: -6px 0 0 22px;
 }
 
 .tsi-info {
@@ -250,7 +250,7 @@ a span {
     border-radius: 10px;
     border: 2px solid grey;
     font-size: 23px;
-    width: 320px;
+    width: 370px;
 }
 
 .form-container input{

@@ -121,12 +121,13 @@ public class VisitTimeController {
 
 		return "<div id=\"form-assign-container\" class=\"form-place-holder\">\n" +
 				"                    <div class=\"form-container\">\n" +
+				" 						 <span style=\"margin: 20px auto; font-size: 19px\">Visit on " + date + " at " + time + ":00</span>" +
 				"                        <form id=\"assign-entity-form\" action=\"/visit-time/assign\" method=\"post\">\n" +
 				"							<input type=\"hidden\" name=\"doctorId\" class=\"data\" value='"+ doctorId +"'/>" +
 				"							<input type=\"hidden\" name=\"date\" class=\"data\" value='"+ date +"'/>" +
 				"							<input type=\"hidden\" name=\"time\" class=\"data\" value='"+ time +"'/>" +
-				"							<select name=\"clientId\" form=\"assign-entity-form\">" +
-												getAllClients() +
+				"							<select id=\"clientSelectTag\" name=\"clientId\" form=\"assign-entity-form\" style=\"width: 100%\">" +
+												getAllClients(null) +
 				"							</select></p>\n" +
 				"                        </form>\n" +
 				"                        <div class=\"form-navigation\">\n" +
@@ -134,6 +135,10 @@ public class VisitTimeController {
 				"                                <img src=\"/images/save.png\" class=\"form-menu-image\">\n" +
 				"                                <span>ASSIGN</span>\n" +
 				"                            </a>\n" +
+				"							 <a onclick=\"openAddNewClient()\" class=\"button-a\">" +
+				"			                    <img src=\"/images/add.png\" class=\"left-menu-image\">" +
+				"								<span>ADD NEW CLIENT</span>" +
+				"						     </a>" +
 				"                        </div>\n" +
 				"                        <a onclick=\"hideForm('assign-entity-form');\" class=\"button-a form-cancel\">\n" +
 				"                            <img src=\"/images/cancel.png\" class=\"form-menu-image\">\n" +
@@ -143,15 +148,30 @@ public class VisitTimeController {
 				"                </div>";
 	}
 
-	private String getAllClients() {
-		ArrayList<Client> allClients = new ArrayList<>();
-		clientRepository.findAll().forEach(allClients::add);
-		String requestResult = "";
-		for (Client client : allClients) {
-			requestResult += client.optionToHtmlBlock();
-		}
+	@PostMapping("/client/visit-time/options")
+	public @ResponseBody String getClientOptions(Integer clientId) {
+		String result = getAllClients(clientId);
 
-		return requestResult;
+		return result;
+	}
+
+	private String getAllClients(Integer clientId) {
+			ArrayList<Client> allClients = new ArrayList<>();
+			clientRepository.findAll().forEach(allClients::add);
+			String result = "<option value=\"\"></option>";
+			if (clientId == null) {
+				for (Client client : allClients) {
+					result += client.getOptionHtml(false);
+				}
+			} else {
+				for (Client client : allClients) {
+					if (client.getIdClient() == clientId)
+						result += client.getOptionHtml(true);
+					else
+						result += client.getOptionHtml(false);
+				}
+			}
+		return result;
 	}
 
 	@PostMapping("/doctor/date-time/all")

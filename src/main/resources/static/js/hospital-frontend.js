@@ -3,7 +3,8 @@ var mainEntityClass = '';
 jQuery(document).ready(function($) {
     mainEntityClass = $("body").attr('data-main-class');
 
-    loadAllObjectsToPage(); // loading all objects from database to page
+    if (mainEntityClass === 'client')
+        loadAllObjectsToPage(); // loading all clients from database to page
 });
 
 function enableInputChecking() {
@@ -56,8 +57,10 @@ function entityRemoving(objectId, specificClass = false) {
             } else if (deletingClass === 'visit-time') {
                 $('#' + deletingClass + '-' + objectId).remove();
                 hideForm('timelog-form');
-            } else
-                loadAllObjectsToPage();
+            } else {
+                if (mainEntityClass === 'client')
+                    loadAllObjectsToPage(); // loading all clients from database to page
+            }
         },
         error: function (e) {
             console.log("ERROR: ", e);
@@ -80,7 +83,8 @@ function openDataForm(objectId, isNewObjectRequired = false, className = undefin
         success: function (data) {
             if (data === 'Not Found!') {
                 alert('This data does not exist!');
-                loadAllObjectsToPage();
+                if (mainEntityClass === 'client')
+                    loadAllObjectsToPage(); // loading all clients from database to page
             } else {
                 var formPlaceHtml = document.getElementById('data-form-place').innerHTML;
                 formPlaceHtml += data;
@@ -136,16 +140,20 @@ function submitDataForm(formId) {
         type: request_method,
         data: form_data,
         success: function (data) {
-            if (data === 'Saved') {
-                hideForm(formId);
+            hideForm(formId);
+            if (data === 'Assigned') {
+                checkAndLoadTimeFrames();
             } else {
-                if (data === 'Assigned') {
-                    hideForm(formId);
-                    checkAndLoadTimeFrames();
+                if (post_url === '/client/save') {
+                    let selectTag = document.getElementById('clientSelectTag');
+                    if (selectTag !== null) {
+                        updateClientSelectTag(data);
+                    }
                 } else
-                    alert('Not saved! Message: ' . data);
+                    alert('Not saved! Message: '.data);
             }
-            loadAllObjectsToPage();
+            if (mainEntityClass === 'client')
+                loadAllObjectsToPage(); // loading all clients from database to page
         },
         error: function (e) {
             console.log("ERROR: ", e);

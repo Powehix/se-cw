@@ -54,7 +54,7 @@
 }
 
 .time-frame {
-    width: 503px;
+    width: 452px;
     height: 85px;
     display: flex;
     margin: 2px;
@@ -63,7 +63,7 @@
 }
 
 .left-info-block {
-    width: 55%;
+    width: 65%;
     padding-left: 10px;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .right-info-block {
-    width: 45%;
+    width: 40%;
     display: flex;
     flex-direction: column;
 }
@@ -111,16 +111,17 @@
 .client-info span:last-child {
     font-size: 14px;
     color: #fd6742;
+    margin-bottom: 5px;
 }
 
 .control-buttons-block {
     display: flex;
-    margin-top: 6px;
+    height: 100%;
 }
 
 .control-buttons-block button {
-    width: 102px;
-    height: 27px;
+    width: 125px;
+    height: 30px;
     font-size: 16px;
     color: white;
     border: 2px solid rgba(128, 128, 128, 0.49);
@@ -129,9 +130,9 @@
 
 .visit-assign-button {
     background: #0e9310;
+    margin: auto 0;
 }
 
 .visit-cancel-button {
     background: #6c6c6c;
-    margin-left: 6px;
 }
