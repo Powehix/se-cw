@@ -72,21 +72,23 @@ public class VisitTime {
     }
 
     public String getTimeFrame() {
+        Doctor doctor = this.getDoctor();
+        Client client = this.getClient();
             return "<div class=\"time-frame\">\n" +
                     "                    <div class=\"left-info-block\">\n" +
                     "                        <div class=\"date-time-info\">\n" +
-                    "                            <span>" + this.time + "</span>\n" +
-                    "                            <span>" + this.date + "</span>\n" +
+                    "                            <span>" + this.getTime() + ":00 </span>\n" +
+                    "                            <span>" + this.getDate() + "</span>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"doctor-info\">\n" +
-                    "                            <span>" + this.doctor.getFullName() + "</span>\n" +
-                    "                            <span>Clinit | Family Doctor | kab. 107</span>\n" +
+                    "                            <span>" + doctor.getFullName() + "</span>\n" +
+                    "                            <span>" + doctor.getPosition().getDepartment().getTitle() + " | " + doctor.getPosition().getTitle() + " | " + doctor.getRoom() + ".kab </span>\n" +
                     "                        </div>\n" +
                     "                    </div>\n" +
                     "                    <div class=\"right-info-block\">\n" +
                     "                        <div class=\"client-info\">\n" +
-                    "                            <span>Vitalijs Vitalikus</span>\n" +
-                    "                            <span>160301-14527</span>\n" +
+                    "                            <span>" + client.getFullName() + "</span>\n" +
+                    "                            <span>" + client.getPersonalCode() + "</span>\n" +
                     "                        </div>\n" +
                     "                        <div class=\"control-buttons-block\">\n" +
                     "                            <button class=\"visit-assign-button\">+ Assign</button>\n" +

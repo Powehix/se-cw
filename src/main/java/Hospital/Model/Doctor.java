@@ -20,7 +20,9 @@ public class Doctor {
 
     private String work_time_end;
 
-    public Doctor (String name, String surname, String email, String phone, String work_time_start, String work_time_end,  Position position) {
+    private String room;
+
+    public Doctor (String name, String surname, String email, String phone, String work_time_start, String work_time_end,  Position position, String room) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -28,6 +30,7 @@ public class Doctor {
         this.work_time_start = work_time_start;
         this.work_time_end = work_time_end;
         this.position = position;
+        this.room = room;
     }
 
     public Doctor () {
@@ -111,5 +114,13 @@ public class Doctor {
 
     public String getFullName() {
         return this.name + " " + this.surname;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 }

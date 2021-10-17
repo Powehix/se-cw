@@ -80,6 +80,10 @@ public class Client {
             return "<option value=\"" + getIdClient() + "\">" + getName() + " " + getSurname() + "</option>";
     }
 
+    public String getFullName() {
+        return this.name + " " + this.surname;
+    }
+
     public String getPersonalCode() {
         return personal_code;
     }
