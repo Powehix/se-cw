@@ -2,15 +2,11 @@ package Hospital.Controllers;
 
 import Hospital.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.ResultSet;
 import java.util.*;
 
 @Controller
@@ -29,9 +25,6 @@ public class VisitTimeController {
 
 	@Autowired
 	private ClientRepository clientRepository;
-
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
 
 	@PostMapping("/departments/all")
 	public @ResponseBody String loadAllDepartments() {
@@ -209,35 +202,8 @@ public class VisitTimeController {
 		return result;
 	}
 
-
-
 	@GetMapping("/visit-time")
 	public String getEntityPage() {
 		return "visittime";
 	}
-
-	@GetMapping("/visit-time/print")
-	public String getEntityPrintPage() {
-		return "visittimeprint";
-	}
-
-	@PostMapping("/visit-time/remove")
-	public @ResponseBody String deleteSelectedEntity(Integer id) {
-		if (visitTimeRepository.existsById(id)) {
-			visitTimeRepository.deleteById(id);
-			return "Deleted";
-		} else {
-			return "Not found!";
-		}
-	}
-
-	@PostMapping(path="/visit-time/save")
-	public @ResponseBody
-	String addNewEntity (@ModelAttribute VisitTime visitTimeData)
-	{
-		//----- Saving by converted to object received params -----
-		visitTimeRepository.save(visitTimeData);
-		return "Saved";
-	}
-
 }

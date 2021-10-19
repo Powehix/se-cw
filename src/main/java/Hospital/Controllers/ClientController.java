@@ -3,17 +3,13 @@ package Hospital.Controllers;
 import Hospital.Model.Client;
 import Hospital.Model.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class ClientController {
@@ -21,18 +17,10 @@ public class ClientController {
 	@Autowired
 	private ClientRepository clientRepository;
 
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
 	@GetMapping("/client")
 	public String getEntityPage() {
 		return "client";
 	}
-
-//	@GetMapping("/client/print")
-//	public String getEntityPrintPage() {
-//		return "clientprint";
-//	}
 
 	@PostMapping("/client/form")
 	public @ResponseBody String loadEntityEditFormWithData(Integer id, Boolean adding) {
@@ -68,32 +56,6 @@ public class ClientController {
 		return savedClient.getIdClient().toString();
 	}
 
-//	@PostMapping(path="/client/sql")
-//	public @ResponseBody
-//	String executeSql (String query)
-//	{
-//		RowMapper <Client> rm = (ResultSet result, int rowNum) -> {
-//			Client object = new Client();
-//
-//			object.setIdClient(result.getInt("id_client"));
-//			object.setContactName(result.getString("contact_name")); // todo
-//			object.setContactSurname(result.getString("contact_surname")); // todo
-//			object.setEmail(result.getString("email"));
-//			object.setPhone(result.getString("phone"));
-//
-//			return object;
-//		};
-//
-//		List<Client> clients = jdbcTemplate.query(query, new Object[]{}, rm);
-//
-//		String requestResult = "";
-//		for (Client oneClient : clients) {
-//			requestResult += clientToHtmlFullBlock(oneClient);
-//		}
-//
-//		return requestResult;
-//	}
-
 	@PostMapping(path="/client/all")
 	public @ResponseBody String getAllClients() {
 		ArrayList<Client> allClients = new ArrayList<>();
@@ -105,19 +67,6 @@ public class ClientController {
 
 		return requestResult;
 	}
-
-//	@PostMapping(path="/client/all/print")
-//	public @ResponseBody String getAllUsersToPrint() {
-//		ArrayList<Client> allClients = new ArrayList<>();
-//		clientRepository.findAll().forEach(allClients::add);
-//		String requestResult = "";
-//		for (Client oneClient : allClients) {
-//			requestResult += clientToHtmlFullBlock(oneClient);
-//		}
-//
-//		return requestResult;
-//	}
-
 
 	public String clientToHtmlBlock(Client client) {
 		return "<div class=\"company-element entity\" onclick=\"openDataForm('"+ client.getIdClient()  +"')\">\n" +
