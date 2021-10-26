@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/home/ilja/Workspace/Hospital/src/main/java/Hospital</OriginalElement>
+  <nodes>
+    <node x="882.0" y="443.0">Hospital.Components.InitialData</node>
+    <node x="0.0" y="1049.0">Hospital.HospitalApplication</node>
+    <node x="0.0" y="0.0">Hospital.Controllers.VisitTimeController</node>
+    <node x="835.0" y="944.0">Hospital.Controllers.HomePageController</node>
+    <node x="559.0" y="1049.0">Hospital.Model.ClientRepository</node>
+    <node x="0.0" y="443.0">Hospital.Controllers.ClientController</node>
+    <node x="788.0" y="0.0">Hospital.Model.Client</node>
+    <node x="266.0" y="1049.0">Hospital.Model.DepartmentRepository</node>
+    <node x="608.0" y="742.0">Hospital.Model.VisitTimeRepository</node>
+    <node x="0.0" y="944.0">Hospital.Model.PositionRepository</node>
+    <node x="448.0" y="944.0">Hospital.Model.DoctorRepository</node>
+    <node x="304.0" y="742.0">Hospital.Model.Department</node>
+    <node x="484.0" y="0.0">Hospital.Model.Doctor</node>
+    <node x="453.0" y="443.0">Hospital.Model.VisitTime</node>
+    <node x="0.0" y="742.0">Hospital.Model.Position</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic" zoom="0.6111603188662533" showDependencies="false" x="603.0" y="554.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
